@@ -4,12 +4,11 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function GET(req: NextRequest) {
 
 	const { searchParams } = new URL(req.url);
-	const lat = searchParams.get('lat') || '52.52';
-	const lon = searchParams.get('lon') || '13.4050';
-
+	const lat = searchParams.get('lat') /*|| '52.52'*/;
+	const lon = searchParams.get('lon') /*|| '13.4050'*/;
 	if (!lat || !lon) {
-    	return NextResponse.json({ error: "Missing latitude or longitude" }, { status: 400 });
-  	}
+		return NextResponse.json({ error: 'Missing latitude or longitude parameters' }, { status: 400 });
+	}
 
 	const params = {
 		"latitude": parseFloat(lat),
@@ -40,6 +39,16 @@ export async function GET(req: NextRequest) {
 		`\nTimezone difference to GMT+0: ${utcOffsetSeconds}s`,
 	);
 
+	const geoRes = await fetch(
+	  `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+	   { headers: { "User-Agent": "KonradWeatherApp/1.0 (konrad.dissakengandopro@yahoo.com)" } }
+	);
+	const geoData = await geoRes.json();
+	const country = geoData.address?.country || null;
+
+	// Then add country to your location object:
+	//weatherData.location.country = country; // <-- new
+
 	const hourly = response.hourly()!;
 	const daily = response.daily()!;
 
@@ -56,6 +65,7 @@ export async function GET(req: NextRequest) {
 			timezone,
 			timezoneAbbreviation,
 			utcOffsetSeconds,
+			country, // Add country property, will be set later
 		},
 		hourly: {
 			time: [...Array((Number(hourly.timeEnd()) - Number(hourly.time())) / hourly.interval())].map(
@@ -81,11 +91,14 @@ export async function GET(req: NextRequest) {
 			sunset: [...Array(sunset.valuesInt64Length())].map(
 				(_, i) => new Date((Number(sunset.valuesInt64(i)) + utcOffsetSeconds) * 1000)
 			),
-			weather_code: daily.variables(2)!.valuesArray(),
+			weathercode: daily.variables(2)!.valuesArray(),
 			temperature_2m_max: daily.variables(3)!.valuesArray(),
 			temperature_2m_min: daily.variables(4)!.valuesArray(),
 		}
 	};
+
+	// Add this inside your GET handler after getting latitude/longitude
+	
 
 	return NextResponse.json(weatherData);
 }
