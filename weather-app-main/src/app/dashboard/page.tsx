@@ -95,7 +95,7 @@ export default function Dashboard() {
     case 2:
       document.body.style.backgroundImage = "url('/partly-cloudy.jpg')";
       break;
-   /* case 3:
+    case 3:
       document.body.style.backgroundImage = "url('/overcast.jpg')";
       break;
     case 45:
@@ -205,7 +205,7 @@ export default function Dashboard() {
         </div>
         <div className="mt-8 w-full flex items-center justify-center">
           {weatherData ? (
-            <TodayCard date={date} temperature={temperature} city={city} country={country} />
+            <TodayCard date={date} temperature={temperature} city={city} country={country} weatherCode={weatherCode} />
           ) : (
             <div className="text-white">Loading weather data...</div>
           )}
