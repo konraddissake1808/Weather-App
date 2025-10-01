@@ -1,13 +1,13 @@
 import React from 'react'
 import Image from 'next/image';
-import clearSky from '../../public/icon-sunny.webp';
-import partlyCloudy from '../../public/icon-partly-cloudy.webp';
-import overcast from '../../public/icon-overcast.webp';
-import fog from '../../public/icon-fog.webp';
-import drizzle from '../../public/icon-drizzle.webp';
-import rain from '../../public/icon-rain.webp';
-import snow from '../../public/icon-snow.webp';
-import thunderstorm from '../../public/icon-storm.webp';
+import clearSky from '../../../public/icon-sunny.webp';
+import partlyCloudy from '../../../public/icon-partly-cloudy.webp';
+import overcast from '../../../public/icon-overcast.webp';
+import fog from '../../../public/icon-fog.webp';
+import drizzle from '../../../public/icon-drizzle.webp';
+import rain from '../../../public/icon-rain.webp';
+import snow from '../../../public/icon-snow.webp';
+import thunderstorm from '../../../public/icon-storm.webp';
 
 type TodayCardProps = {
   date?: string;
@@ -55,7 +55,7 @@ function TodayCard({ date, temperature, city, country, weatherCode }: TodayCardP
   }
 
   return (
-    <div id="today-card" className="rounded-3xl h-[286px] bg-contain bg-center w-[90%] flex flex-col items-center text-center justify-center">
+    <div id="today-card" className="rounded-3xl h-[286px] bg-conver bg-center w-[90%] flex flex-col items-center text-center justify-center">
       <div className="w-full flex justify-between items-center flex-col">
         <p className='text-[28px] leading-5 font-bold text-neutral-0 font-dm-sans'>{city}, {country}</p>
         <p className='text-lg leading-5 font-medium text-neutral-0 opacity-80 font-dm-sans mt-3'>{date}</p>

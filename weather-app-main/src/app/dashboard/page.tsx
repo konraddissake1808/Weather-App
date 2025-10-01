@@ -1,10 +1,11 @@
 'use client';
 import React, { useEffect } from 'react'
 import Image from 'next/image'
-import TodayCard from '../../components/TodayCard';
-import SearchBar from '../../components/SearchBar';
+import TodayCard from '../../components/todayCard/TodayCard';
+import SearchBar from '../../components/searchBar/SearchBar';
 import { getUserLocation } from '@/utils/geolocation';
 import SearchButton from '@/components/searchButton/SearchButton';
+import OtherDataCard from '@/components/todayWeatherOtherDataCard/OtherDataCard';
 
 /*interface City {
   name: string;
@@ -85,91 +86,6 @@ export default function Dashboard() {
   const weatherCode = weatherData
     ? weatherData.hourly.weathercode[currentHourIndex]
     : 0;
-  /*switch (weatherCode) {
-    case 0:
-      document.body.style.backgroundImage = "url('/clear-sky.jpg')";
-      break;
-    case 1:
-      document.body.style.backgroundImage = "url('/mainly-clear.jpg')";
-      break;
-    case 2:
-      document.body.style.backgroundImage = "url('/partly-cloudy.jpg')";
-      break;
-    case 3:
-      document.body.style.backgroundImage = "url('/overcast.jpg')";
-      break;
-    case 45:
-    case 48:
-      document.body.style.backgroundImage = "url('/fog.jpg')";
-      break;
-    case 51:
-      document.body.style.backgroundImage = "url('/drizzle-light.jpg')";
-      break;
-    case 53:
-      document.body.style.backgroundImage = "url('/drizzle-moderate.jpg')";
-    case 55:
-      document.body.style.backgroundImage = "url('/drizzle-dense.jpg')";
-      break;
-    case 56:
-      document.body.style.backgroundImage = "url('/freezing-drizzle-light.jpg')";
-      break;
-    case 57:
-      document.body.style.backgroundImage = "url('/freezing-drizzle-dense.jpg')";
-      break;
-    case 61:
-      document.body.style.backgroundImage = "url('/rain-slight.jpg')";
-      break;
-    case 63:
-      document.body.style.backgroundImage = "url('/rain-moderate.jpg')";
-      break;
-    case 65:
-      document.body.style.backgroundImage = "url('/rain-heavy.jpg')";
-      break;
-    case 66:
-      document.body.style.backgroundImage = "url('/freezing-rain-light.jpg')";
-      break;
-    case 67:
-      document.body.style.backgroundImage = "url('/freezing-rain-heavy.jpg')";
-      break;
-    case 71:
-      document.body.style.backgroundImage = "url('/snow-fall-slight.jpg')";
-      break;
-    case 73:
-      document.body.style.backgroundImage = "url('/snow-fall-moderate.jpg')";
-      break;
-    case 75:
-      document.body.style.backgroundImage = "url('/snow-fall-heavy.jpg')";
-      break;
-    case 77:
-      document.body.style.backgroundImage = "url('/snow-grains.jpg')";
-      break;
-    case 80:
-      document.body.style.backgroundImage = "url('/rain-showers-slight.jpg')";
-      break;
-    case 81:
-      document.body.style.backgroundImage = "url('/rain-showers-moderate.jpg')";
-      break;
-    case 82:
-      document.body.style.backgroundImage = "url('/rain-showers-violent.jpg')";
-      break;
-    case 85:
-      document.body.style.backgroundImage = "url('/snow-showers-slight.jpg')";
-      break;
-    case 86:
-      document.body.style.backgroundImage = "url('/snow-showers-heavy.jpg')";
-      break;
-    case 95:
-      document.body.style.backgroundImage = "url('/thunderstorm-slight-or-moderate.jpg')";
-      break;
-    case 96:
-      document.body.style.backgroundImage = "url('/thunderstorm-with-slight-hail.jpg')";
-      break;
-    case 99:
-      document.body.style.backgroundImage = "url('/thunderstorm-with-heavy-hail.jpg')";
-      break;
-    default:
-      //document.body.style.backgroundImage = "url('/default.jpg')";
-  }*/
 
   //daily forecast - first day
   const firstDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 0
@@ -180,6 +96,14 @@ export default function Dashboard() {
     ? weatherData.location.country
     : '';
 
+  const otherDataTitle = ['Feels Like', 'Humidity', 'Wind', 'Precipitation'];
+  const otherDataUnitMetric = ["°", "%", "km/h", "mm"];
+  const otherDataUnitImperial = ["°", "%", "mph", "in"];
+
+  // You can toggle between metric and imperial units as needed
+ /* const useMetric = true; // Change to false for imperial units
+  const otherDataUnit = useMetric ? otherDataUnitMetric : otherDataUnitImperial;  */
+  
   return (
     <div className="fex items-center justify-items-center w-full mt-4">
       <div className='w-full flex flex-col items-center'>
@@ -210,31 +134,19 @@ export default function Dashboard() {
             <div className="text-white">Loading weather data...</div>
           )}
         </div>
-        <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-8 mb-8'>
-          <div className='text-white text-2xl font-semibold mb-4 md:mb-0'>
-            <div className='flex flex-col items-center'>
-              <div className=''>
-                <p>Feels like</p>
-                <p>{feelsLike}</p>
-              </div>
+        <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-5 mb-8'>
+          <div className='text-white text-2xl w-full font-semibold mb-4 md:mb-0 grid grid-cols-2 grid-rows-2 gap-4'>
+            <div className='flex flex-col items-center w-full'>
+              <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLike} otherDataUnitMetric={otherDataUnitMetric[0]} otherDataUnitImperial={otherDataUnitImperial[0]} />
             </div>
-            <div className='flex flex-col items-center mt-4'>
-              <div>
-                <p>Humidity</p>
-                <p>{humidity}</p>
-              </div>
+            <div>
+              <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnitMetric={otherDataUnitMetric[1]} otherDataUnitImperial={otherDataUnitImperial[1]} />
             </div>
-            <div className='flex flex-col items-center mt-4'>
-              <div>
-                <p>Wind</p>
-                <p>{wind}</p>
-              </div>
+            <div>
+              <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={wind} otherDataUnitMetric={otherDataUnitMetric[2]} otherDataUnitImperial={otherDataUnitImperial[2]} />
             </div>
-            <div className='flex flex-col items-center mt-4'>
-              <div>
-                <p>Precipitation</p>
-                <p>{precipitation}</p>
-              </div>
+            <div>
+              <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitation} otherDataUnitMetric={otherDataUnitMetric[3]} otherDataUnitImperial={otherDataUnitImperial[3]} />
             </div>
           </div>
         </div>

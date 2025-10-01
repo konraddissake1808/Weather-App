@@ -49,4 +49,6 @@ body {
 
 #today-card {
   background: url('/bg-today-small.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
