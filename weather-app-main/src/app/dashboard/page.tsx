@@ -6,6 +6,7 @@ import SearchBar from '../../components/searchBar/SearchBar';
 import { getUserLocation } from '@/utils/geolocation';
 import SearchButton from '@/components/searchButton/SearchButton';
 import OtherDataCard from '@/components/todayWeatherOtherDataCard/OtherDataCard';
+import DailyForecastCard from '@/components/dailyForecastCard/DailyForecastCard';
 
 /*interface City {
   name: string;
@@ -59,7 +60,7 @@ export default function Dashboard() {
     });
   };
   const currentHourIndex = getCurrentHourIndex();
-  //temperature
+  //current temperature
   const temperature = weatherData
     ? Math.round(weatherData.hourly.temperature_2m[currentHourIndex])
     : 0;
@@ -89,9 +90,103 @@ export default function Dashboard() {
 
   //daily forecast - first day
   const firstDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 0
-    ? new Date(weatherData.daily.time[0]).toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long' })
+    ? new Date(weatherData.daily.time[0]).toLocaleDateString('en-US', { weekday: 'long' })
+    : 'Loading date...';
+  //dayTwo
+  const secondDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 1
+    ? new Date(weatherData.daily.time[1]).toLocaleDateString('en-US', { weekday: 'long' })
+    : 'Loading date...';
+  //dayThree
+  const thirdDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 2
+    ? new Date(weatherData.daily.time[2]).toLocaleDateString('en-US', { weekday: 'long' })
+    : 'Loading date...';
+  //dayFour
+  const fourthDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 3
+    ? new Date(weatherData.daily.time[3]).toLocaleDateString('en-US', { weekday: 'long' })
+    : 'Loading date...';
+  //dayFive
+  const fifthDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 4
+    ? new Date(weatherData.daily.time[4]).toLocaleDateString('en-US', { weekday: 'long' })
+    : 'Loading date...';
+  //daySix
+  const sixthDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 5
+    ? new Date(weatherData.daily.time[5]).toLocaleDateString('en-US', { weekday: 'long' })
+    : 'Loading date...';
+  //daySeven
+  const seventhDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 6
+    ? new Date(weatherData.daily.time[6]).toLocaleDateString('en-US', { weekday: 'long' })
     : 'Loading date...';
   
+  //max temp
+  const maxTempDayOne = weatherData
+    ?Math.round(weatherData.daily.temperature_2m_max[0])
+    : 0;
+  const maxTempDayTwo = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_max[1])
+    : 0;
+  const maxTempDayThree = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_max[2])
+    : 0;
+  const maxTempDayFour = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_max[3])
+    : 0;
+  const maxTempDayFive = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_max[4])
+    : 0;
+  const maxTempDaySix = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_max[5])
+    : 0;
+  const maxTempDaySeven = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_max[6])
+    : 0;
+  
+  //min temp
+  const minTempDayOne = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[0])
+    : 0;
+  const minTempDayTwo = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[1])
+    : 0;
+  const minTempDayThree = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[2])
+    : 0;
+  const minTempDayFour = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[3])
+    : 0;
+  const minTempDayFive = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[4])
+    : 0;
+  const minTempDaySix = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[5])
+    : 0;
+  const minTempDaySeven = weatherData
+    ? Math.round(weatherData.daily.temperature_2m_min[6])
+    : 0;
+
+  //daily weather code
+  const weatherCodeDailyDayOne = weatherData
+    ? weatherData.daily.weathercode[0]
+    : 0;
+  const weatherCodeDailyDayTwo = weatherData
+    ? weatherData.daily.weathercode[1]
+    : 0;
+  const weatherCodeDailyDayThree = weatherData
+    ? weatherData.daily.weathercode[2]
+    : 0;
+  const weatherCodeDailyDayFour = weatherData
+    ? weatherData.daily.weathercode[3]
+    : 0;
+  const weatherCodeDailyDayFive = weatherData
+    ? weatherData.daily.weathercode[4]
+    : 0;
+  const weatherCodeDailyDaySix = weatherData
+    ? weatherData.daily.weathercode[5]
+    : 0;
+  const weatherCodeDailyDaySeven = weatherData
+    ? weatherData.daily.weathercode[6]
+    : 0;
+
+  //current country
   const country = weatherData && weatherData.location && weatherData.location.country
     ? weatherData.location.country
     : '';
@@ -135,7 +230,7 @@ export default function Dashboard() {
           )}
         </div>
         <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-5 mb-8'>
-          <div className='text-white text-2xl w-full font-semibold mb-4 md:mb-0 grid grid-cols-2 grid-rows-2 gap-4'>
+          <div className='text-white text-2xl w-full font-semibold md:mb-0 grid grid-cols-2 grid-rows-2 gap-4'>
             <div className='flex flex-col items-center w-full'>
               <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLike} otherDataUnitMetric={otherDataUnitMetric[0]} otherDataUnitImperial={otherDataUnitImperial[0]} />
             </div>
@@ -150,19 +245,33 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div>
-          <div>
+        <div className='w-[90%] flex flex-col items-center mb-5'>
+          <div className='w-full mb-5 font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
             <p>Daily forecasts</p>
           </div>
-          <div>
-            <div>
+          <div className='w-full'>
+            <div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4'>
               <div>
-                <p>{firstDay}</p>
+                <DailyForecastCard weatherCode={weatherCodeDailyDayOne} maxTemp={maxTempDayOne} minTemp={minTempDayOne} date={firstDay} />
               </div>
               <div>
-                
+                <DailyForecastCard weatherCode={weatherCodeDailyDayTwo} maxTemp={maxTempDayTwo} minTemp={minTempDayTwo} date={secondDay} />
               </div>
-              <div></div>
+              <div>
+                <DailyForecastCard weatherCode={weatherCodeDailyDayThree} maxTemp={maxTempDayThree} minTemp={minTempDayThree} date={thirdDay} />
+              </div>
+              <div>
+                <DailyForecastCard weatherCode={weatherCodeDailyDayFour} maxTemp={maxTempDayFour} minTemp={minTempDayFour} date={fourthDay} />
+              </div>
+              <div>
+                <DailyForecastCard weatherCode={weatherCodeDailyDayFive} maxTemp={maxTempDayFive} minTemp={minTempDayFive} date={fifthDay} />
+              </div>
+              <div>
+                <DailyForecastCard weatherCode={weatherCodeDailyDaySix} maxTemp={maxTempDaySix} minTemp={minTempDaySix} date={sixthDay} />
+              </div>
+              <div>
+                <DailyForecastCard weatherCode={weatherCodeDailyDaySeven} maxTemp={maxTempDaySeven} minTemp={minTempDaySeven} date={seventhDay} />
+              </div>
             </div>
           </div>
           <div>
