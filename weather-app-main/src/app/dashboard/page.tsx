@@ -7,6 +7,8 @@ import { getUserLocation } from '@/utils/geolocation';
 import SearchButton from '@/components/searchButton/SearchButton';
 import OtherDataCard from '@/components/todayWeatherOtherDataCard/OtherDataCard';
 import DailyForecastCard from '@/components/dailyForecastCard/DailyForecastCard';
+import HourlyForecast from '@/components/hourlyForecastComponent.tsx/HourlyForecast';
+import UnitDropdown from '@/components/unitDropdown/UnitDropdown';
 
 /*interface City {
   name: string;
@@ -202,7 +204,7 @@ export default function Dashboard() {
   return (
     <div className="fex items-center justify-items-center w-full mt-4">
       <div className='w-full flex flex-col items-center'>
-        <div>
+        <div className='w-[90%] flex items-center justify-between'>
           <div>
             <Image
               src="/logo.svg"
@@ -214,9 +216,12 @@ export default function Dashboard() {
               className='w-32 h-8'
             />
           </div>
+          <div>
+            <UnitDropdown />
+          </div>
         </div>
         <div className='w-[90%] flex flex-col items-center mt-12'>
-          <h1 className='text-white text-5xl font-bold mt-8 font-bricolage-grotesque text-center text-balance'>How&apos;s the sky looking today?</h1>
+          <h1 className='text-white text-5xl font-bold font-bricolage-grotesque text-center text-balance'>How&apos;s the sky looking today?</h1>
         </div>
         <div className='w-[90%] flex flex-col items-center mt-12'>
           <SearchBar  />
@@ -274,16 +279,21 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-          <div>
-
+        </div>
+        <div className='w-full flex flex-col items-center'>
+          <div className='w-[90%] bg-neutral-800 rounded-lg p-5 h-[685px]'>
+            <div className='flex items-center justify-between mb-5'>
+              <div className='font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
+                <p>Hourly Forecast</p>
+              </div>
+              <div>
+                <UnitDropdown />
+              </div>
+            </div>
+            <div>
+              <HourlyForecast />
+            </div>
           </div>
-          <div>
-
-          </div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
         </div>
       </div>
     </div>
