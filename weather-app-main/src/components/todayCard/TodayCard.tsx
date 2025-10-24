@@ -21,8 +21,6 @@ type TodayCardProps = {
 
 function TodayCard({ date, temperature, city, country, weatherCode }: TodayCardProps) {
 
-  console.log(weatherCode);
-
   const weatherBackgrounds = {
     "0": clearSky,
     "1": partlyCloudy,

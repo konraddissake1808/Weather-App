@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useEffect, useRef} from 'react'
 import Image from 'next/image'
 import unitDropdownIcon from '../../../public/icon-units.svg'
 import downArrow from '../../../public/icon-dropdown.svg'
@@ -13,6 +13,15 @@ function UnitDropdown() {
     dropdownMenuRef.current?.classList.toggle('hidden')
   }
 
+  /*useEffect(()=> {
+    document.addEventListener('click', function outsideMenuClick(e){
+      const unitMenu = document.getElementById('unit-menu');
+      if(!unitMenu?.contains(e.target as HTMLElement)) {
+        dropdownMenuRef.current?.classList.toggle('hidden')
+      }
+    })
+  })*/
+
   const switchToImperial = () => {
     console.log('switched to imperial')
   }
@@ -26,7 +35,7 @@ function UnitDropdown() {
           <Image src={downArrow} alt='down arrow' width={32} height={32} className='w-2.5 h-3.5' />
         </button>
       </div>
-      <div ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
+      <div id='unit-menu' ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
         <div className='bg-neutral-800 w-[214px] right-0 rounded-lg absolute mt-2 py-1.5 px-2'>
           <div className='mb-1'>
             <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5' onClick={switchToImperial}>Switch to Imperial</button>
