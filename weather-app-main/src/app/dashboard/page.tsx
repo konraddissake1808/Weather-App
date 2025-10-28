@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import TodayCard from '../../components/todayCard/TodayCard';
 import SearchBar from '../../components/searchBar/SearchBar';
@@ -20,14 +20,7 @@ import HourlyForecastDropdown from '@/components/hourlyForecastDropdown/HourlyFo
 
 export const defaultCity: City = {"name": "Berlin", "latitude": 52.52, "longitude": 13.4050};*/
 
-export function changeForecastDay(days:string, index:number) {
-  console.log(`${days} clicked at index ${index}`);
-  const hourlyForecastDayButton = document.getElementById('dayButton');
-  const hourlyForecastDayButtonText = hourlyForecastDayButton?.querySelector("#dayButtonText")
-  if (hourlyForecastDayButtonText) {
-    hourlyForecastDayButtonText.innerHTML = `${days}`;
-  }
-}
+
 
 export default function Dashboard() {
 
@@ -206,6 +199,7 @@ export default function Dashboard() {
   const weatherCodeDailyDaySeven = weatherData
     ? weatherData.daily.weathercode[6]
     : 0;
+
   //Hourly forecast
   //Day One Temperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -214,6 +208,49 @@ export default function Dashboard() {
     const tempDayOne = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayOne.push(tempDayOne);
   }
+  //Day Two Tempemperature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayTwo: any[] = [];
+  for(let x=25; x<48; x++) {
+    const tempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    hourlyTempDayTwo.push(tempDayTwo);
+  }
+  //Day Three Tempemperature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayThree: any[] = [];
+  for(let x=48; x<72; x++) {
+    const tempDayThree = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    hourlyTempDayThree.push(tempDayThree);
+  }
+  //Day Four Tempemperature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayFour: any[] = [];
+  for(let x=72; x<96; x++) {
+    const tempDayFour = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    hourlyTempDayFour.push(tempDayFour);
+  }
+  //Day Five Tempemperature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayFive: any[] = [];
+  for(let x=96; x<120; x++) {
+    const tempDayFive = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    hourlyTempDayFive.push(tempDayFive);
+  }
+  //Day Six Tempemperature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDaySix: any[] = [];
+  for(let x=120; x<144; x++) {
+    const tempDaySix = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    hourlyTempDaySix.push(tempDaySix);
+  }
+  //Day Seven Tempemperature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDaySeven: any[] = [];
+  for(let x=144; x<168; x++) {
+    const tempDaySeven = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    hourlyTempDaySeven.push(tempDaySeven);
+  }
+
   //Day One Weather code
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyWeatherCodeDayOne: any[] = [];
@@ -221,10 +258,76 @@ export default function Dashboard() {
     const weatherCodeDayOne = weatherData? weatherData.hourly.weathercode[x]: 0;
     hourlyWeatherCodeDayOne.push(weatherCodeDayOne);
   }
-  console.log(hourlyWeatherCodeDayOne);
-  /*const hourlyForecastDayOne = weatherData
-    ? weatherData.hourly.temperature_2m[0]
-    : 0;*/
+  //Day Two Weather code
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyWeatherCodeDayTwo: any[] = [];
+  for(let x=24; x<48; x++) {
+    const weatherCodeDayTwo = weatherData? weatherData.hourly.weathercode[x]: 0;
+    hourlyWeatherCodeDayTwo.push(weatherCodeDayTwo);
+  }
+  //Day Three Weather code
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyWeatherCodeDayThree: any[] = [];
+  for(let x=48; x<72; x++) {
+    const weatherCodeDayThree = weatherData? weatherData.hourly.weathercode[x]: 0;
+    hourlyWeatherCodeDayThree.push(weatherCodeDayThree);
+  }
+  //Day Four Weather code
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyWeatherCodeDayFour: any[] = [];
+  for(let x=72; x<96; x++) {
+    const weatherCodeDayFour = weatherData? weatherData.hourly.weathercode[x]: 0;
+    hourlyWeatherCodeDayFour.push(weatherCodeDayFour);
+  }
+  //Day Five Weather code
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyWeatherCodeDayFive: any[] = [];
+  for(let x=96; x<120; x++) {
+    const weatherCodeDayFive = weatherData? weatherData.hourly.weathercode[x]: 0;
+    hourlyWeatherCodeDayFive.push(weatherCodeDayFive);
+  }
+  //Day Six Weather code
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyWeatherCodeDaySix: any[] = [];
+  for(let x=120; x<144; x++) {
+    const weatherCodeDaySix = weatherData? weatherData.hourly.weathercode[x]: 0;
+    hourlyWeatherCodeDaySix.push(weatherCodeDaySix);
+  }
+  //Day Seven Weather code
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyWeatherCodeDaySeven: any[] = [];
+  for(let x=144; x<168; x++) {
+    const weatherCodeDaySeven = weatherData? weatherData.hourly.weathercode[x]: 0;
+    hourlyWeatherCodeDaySeven.push(weatherCodeDaySeven);
+  }
+
+  const [hourlyTemps, setHourlyTemps] = useState<number[]>(hourlyTempDayOne);
+  const [hourlyWeatherCodes, setHourlyWeatherCodes] = useState<number[]>(hourlyWeatherCodeDayOne);
+  useEffect(() => {
+    if (weatherData) {
+      //Hourly forecast
+      //Day One Temperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDayOne: any[] = [];
+      for(let x=0; x<25; x++) {
+        const tempDayOne = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDayOne.push(tempDayOne);
+      }
+
+      //Day One Weather code
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyWeatherCodeDayOne: any[] = [];
+      for(let x=0; x<24; x++) {
+        const weatherCodeDayOne = weatherData? weatherData.hourly.weathercode[x]: 0;
+        hourlyWeatherCodeDayOne.push(weatherCodeDayOne);
+      }
+      
+      setHourlyTemps(hourlyTempDayOne);
+      setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
+    }
+  }, [weatherData]);
+
+  console.log(hourlyTemps);
 
   //current country
   const country = weatherData && weatherData.location && weatherData.location.country
@@ -236,6 +339,43 @@ export default function Dashboard() {
   const otherDataUnitImperial = ["°", "%", "mph", "in"];
 
   const hours = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
+
+  function changeForecastDay(days:string, index:number) {
+    console.log(`${days} clicked at index ${index}`);
+    const hourlyForecastDayButton = document.getElementById('dayButton');
+    const hourlyForecastDayButtonText = hourlyForecastDayButton?.querySelector("#dayButtonText")
+    if (hourlyForecastDayButtonText) {
+      hourlyForecastDayButtonText.innerHTML = `${days}`;
+    }
+    if (index === 0) {
+      setHourlyTemps(hourlyTempDayOne);
+      setHourlyWeatherCodes(hourlyWeatherCodeDayOne)
+    }
+    else if (index === 1) {
+      setHourlyTemps(hourlyTempDayTwo);
+      setHourlyWeatherCodes(hourlyWeatherCodeDayTwo)
+    }
+    else if (index === 2) {
+      setHourlyTemps(hourlyTempDayThree);
+      setHourlyWeatherCodes(hourlyWeatherCodeDayThree)
+    }
+    else if (index === 3) {
+      setHourlyTemps(hourlyTempDayFour);
+      setHourlyWeatherCodes(hourlyWeatherCodeDayFour)
+    }
+    else if (index === 4) {
+      setHourlyTemps(hourlyTempDayFive);
+      setHourlyWeatherCodes(hourlyWeatherCodeDayFive)
+    }
+    else if (index === 5) {
+      setHourlyTemps(hourlyTempDaySix);
+      setHourlyWeatherCodes(hourlyWeatherCodeDaySix)
+    }
+    else if (index === 6) {
+      setHourlyTemps(hourlyTempDaySeven);
+      setHourlyWeatherCodes(hourlyWeatherCodeDaySeven)
+    }
+  }
 
   // You can toggle between metric and imperial units as needed
  /* const useMetric = true; // Change to false for imperial units
@@ -328,82 +468,82 @@ export default function Dashboard() {
                 <p>Hourly Forecast</p>
               </div>
               <div>
-                <HourlyForecastDropdown firstDay={firstDay} secondDay={secondDay} thirdDay={thirdDay} fourthDay={fourthDay} fithDay={fifthDay} sixthDay={sixthDay} seventhDay={seventhDay} />
+                <HourlyForecastDropdown buttonClick={changeForecastDay} firstDay={firstDay} secondDay={secondDay} thirdDay={thirdDay} fourthDay={fourthDay} fithDay={fifthDay} sixthDay={sixthDay} seventhDay={seventhDay} />
               </div>
             </div>
             <div className='overflow-y-scroll h-[595px] snap-y'>
               <div className='snap-start'>
                 <div className=''>
-                  <HourlyForecast hour={hours[0]} hourlyWeatherCode={hourlyWeatherCodeDayOne[0]} hourlyTemperature={hourlyTempDayOne[0]} />
+                  <HourlyForecast hour={hours[0]} hourlyWeatherCode={hourlyWeatherCodes[0]} hourlyTemperature={hourlyTemps[0]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[1]} hourlyWeatherCode={hourlyWeatherCodeDayOne[1]} hourlyTemperature={hourlyTempDayOne[1]} />
+                  <HourlyForecast hour={hours[1]} hourlyWeatherCode={hourlyWeatherCodes[1]} hourlyTemperature={hourlyTemps[1]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[2]} hourlyWeatherCode={hourlyWeatherCodeDayOne[2]} hourlyTemperature={hourlyTempDayOne[2]} />
+                  <HourlyForecast hour={hours[2]} hourlyWeatherCode={hourlyWeatherCodes[2]} hourlyTemperature={hourlyTemps[2]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[3]} hourlyWeatherCode={hourlyWeatherCodeDayOne[3]} hourlyTemperature={hourlyTempDayOne[3]} />
+                  <HourlyForecast hour={hours[3]} hourlyWeatherCode={hourlyWeatherCodes[3]} hourlyTemperature={hourlyTemps[3]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[4]} hourlyWeatherCode={hourlyWeatherCodeDayOne[4]} hourlyTemperature={hourlyTempDayOne[4]} />
+                  <HourlyForecast hour={hours[4]} hourlyWeatherCode={hourlyWeatherCodes[4]} hourlyTemperature={hourlyTemps[4]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[5]} hourlyWeatherCode={hourlyWeatherCodeDayOne[5]} hourlyTemperature={hourlyTempDayOne[5]} />
+                  <HourlyForecast hour={hours[5]} hourlyWeatherCode={hourlyWeatherCodes[5]} hourlyTemperature={hourlyTemps[5]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[6]} hourlyWeatherCode={hourlyWeatherCodeDayOne[6]} hourlyTemperature={hourlyTempDayOne[6]} />
+                  <HourlyForecast hour={hours[6]} hourlyWeatherCode={hourlyWeatherCodes[6]} hourlyTemperature={hourlyTemps[6]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[7]} hourlyWeatherCode={hourlyWeatherCodeDayOne[7]} hourlyTemperature={hourlyTempDayOne[7]} />
+                  <HourlyForecast hour={hours[7]} hourlyWeatherCode={hourlyWeatherCodes[7]} hourlyTemperature={hourlyTemps[7]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[8]} hourlyWeatherCode={hourlyWeatherCodeDayOne[8]} hourlyTemperature={hourlyTempDayOne[8]} />
+                  <HourlyForecast hour={hours[8]} hourlyWeatherCode={hourlyWeatherCodes[8]} hourlyTemperature={hourlyTemps[8]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[9]} hourlyWeatherCode={hourlyWeatherCodeDayOne[9]} hourlyTemperature={hourlyTempDayOne[9]} />
+                  <HourlyForecast hour={hours[9]} hourlyWeatherCode={hourlyWeatherCodes[9]} hourlyTemperature={hourlyTemps[9]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[10]} hourlyWeatherCode={hourlyWeatherCodeDayOne[10]} hourlyTemperature={hourlyTempDayOne[10]} />
+                  <HourlyForecast hour={hours[10]} hourlyWeatherCode={hourlyWeatherCodes[10]} hourlyTemperature={hourlyTemps[10]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[11]} hourlyWeatherCode={hourlyWeatherCodeDayOne[11]} hourlyTemperature={hourlyTempDayOne[11]} />
+                  <HourlyForecast hour={hours[11]} hourlyWeatherCode={hourlyWeatherCodes[11]} hourlyTemperature={hourlyTemps[11]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[12]} hourlyWeatherCode={hourlyWeatherCodeDayOne[12]} hourlyTemperature={hourlyTempDayOne[12]} />
+                  <HourlyForecast hour={hours[12]} hourlyWeatherCode={hourlyWeatherCodes[12]} hourlyTemperature={hourlyTemps[12]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[13]} hourlyWeatherCode={hourlyWeatherCodeDayOne[13]} hourlyTemperature={hourlyTempDayOne[13]} />
+                  <HourlyForecast hour={hours[13]} hourlyWeatherCode={hourlyWeatherCodes[13]} hourlyTemperature={hourlyTemps[13]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[14]} hourlyWeatherCode={hourlyWeatherCodeDayOne[14]} hourlyTemperature={hourlyTempDayOne[14]} />
+                  <HourlyForecast hour={hours[14]} hourlyWeatherCode={hourlyWeatherCodes[14]} hourlyTemperature={hourlyTemps[14]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[15]} hourlyWeatherCode={hourlyWeatherCodeDayOne[15]} hourlyTemperature={hourlyTempDayOne[15]} />
+                  <HourlyForecast hour={hours[15]} hourlyWeatherCode={hourlyWeatherCodes[15]} hourlyTemperature={hourlyTemps[15]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[16]} hourlyWeatherCode={hourlyWeatherCodeDayOne[16]} hourlyTemperature={hourlyTempDayOne[16]} />
+                  <HourlyForecast hour={hours[16]} hourlyWeatherCode={hourlyWeatherCodes[16]} hourlyTemperature={hourlyTemps[16]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[17]} hourlyWeatherCode={hourlyWeatherCodeDayOne[17]} hourlyTemperature={hourlyTempDayOne[17]} />
+                  <HourlyForecast hour={hours[17]} hourlyWeatherCode={hourlyWeatherCodes[17]} hourlyTemperature={hourlyTemps[17]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[18]} hourlyWeatherCode={hourlyWeatherCodeDayOne[18]} hourlyTemperature={hourlyTempDayOne[18]} />
+                  <HourlyForecast hour={hours[18]} hourlyWeatherCode={hourlyWeatherCodes[18]} hourlyTemperature={hourlyTemps[18]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[19]} hourlyWeatherCode={hourlyWeatherCodeDayOne[19]} hourlyTemperature={hourlyTempDayOne[19]} />
+                  <HourlyForecast hour={hours[19]} hourlyWeatherCode={hourlyWeatherCodes[19]} hourlyTemperature={hourlyTemps[19]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[20]} hourlyWeatherCode={hourlyWeatherCodeDayOne[20]} hourlyTemperature={hourlyTempDayOne[20]} />
+                  <HourlyForecast hour={hours[20]} hourlyWeatherCode={hourlyWeatherCodes[20]} hourlyTemperature={hourlyTemps[20]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[21]} hourlyWeatherCode={hourlyWeatherCodeDayOne[21]} hourlyTemperature={hourlyTempDayOne[21]} />
+                  <HourlyForecast hour={hours[21]} hourlyWeatherCode={hourlyWeatherCodes[21]} hourlyTemperature={hourlyTemps[21]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[22]} hourlyWeatherCode={hourlyWeatherCodeDayOne[22]} hourlyTemperature={hourlyTempDayOne[22]} />
+                  <HourlyForecast hour={hours[22]} hourlyWeatherCode={hourlyWeatherCodes[22]} hourlyTemperature={hourlyTemps[22]} />
                 </div>
                 <div className='snap-start'>
-                  <HourlyForecast hour={hours[23]} hourlyWeatherCode={hourlyWeatherCodeDayOne[23]} hourlyTemperature={hourlyTempDayOne[23]} />
+                  <HourlyForecast hour={hours[23]} hourlyWeatherCode={hourlyWeatherCodes[23]} hourlyTemperature={hourlyTemps[23]} />
                 </div> 
               </div>
             </div>

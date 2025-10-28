@@ -1,9 +1,10 @@
 import React, { useRef } from 'react'
 import Image from 'next/image'
 import downArrow from '../../../public/icon-dropdown.svg'
-import { changeForecastDay } from '@/app/dashboard/page'
+//import { changeForecastDay } from '@/app/dashboard/page'
 
 interface HourlyForecastDropdownProps {
+  buttonClick: (days:string, index:number) => void;
   firstDay?: string;
   secondDay?: string;
   thirdDay?: string;
@@ -13,7 +14,7 @@ interface HourlyForecastDropdownProps {
   seventhDay?: string;
 }
 
-function HourlyForecastDropdown( {firstDay, secondDay, thirdDay, fourthDay, fithDay, sixthDay, seventhDay}: HourlyForecastDropdownProps) {
+function HourlyForecastDropdown( {buttonClick, firstDay, secondDay, thirdDay, fourthDay, fithDay, sixthDay, seventhDay}: HourlyForecastDropdownProps) {
 
      const dropdownMenuRef = useRef<HTMLDivElement>(null)
     
@@ -44,7 +45,7 @@ function HourlyForecastDropdown( {firstDay, secondDay, thirdDay, fourthDay, fith
             {day.map((days, index) => (
               <div key={index} className=''>    
                   <div className='mb-1 bg-neutral-800 rounded-lg'>
-                      <button onClick={() => changeForecastDay(days ?? '', index)} className='forecastDayButton font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>{days}</button>
+                      <button onClick={() => buttonClick(days ?? '', index)} className='forecastDayButton font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>{days}</button>
                   </div>
               </div>
             ))}
