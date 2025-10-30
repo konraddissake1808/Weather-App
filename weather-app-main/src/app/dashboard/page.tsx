@@ -343,37 +343,101 @@ export default function Dashboard() {
   function changeForecastDay(days:string, index:number) {
     console.log(`${days} clicked at index ${index}`);
     const hourlyForecastDayButton = document.getElementById('dayButton');
-    const hourlyForecastDayButtonText = hourlyForecastDayButton?.querySelector("#dayButtonText")
+    //const hourlyForecastDropdownContainer = document.getElementById('hourlyForecastDropdownContainer')
+    const hourlyForecastDropdownButton1 = document.getElementById('hourlyForecastButton0');
+    const hourlyForecastDropdownButton2 = document.getElementById('hourlyForecastButton1');
+    const hourlyForecastDropdownButton3 = document.getElementById('hourlyForecastButton2');
+    const hourlyForecastDropdownButton4 = document.getElementById('hourlyForecastButton3');
+    const hourlyForecastDropdownButton5 = document.getElementById('hourlyForecastButton4');
+    const hourlyForecastDropdownButton6 = document.getElementById('hourlyForecastButton5');
+    const hourlyForecastDropdownButton7 = document.getElementById('hourlyForecastButton6');
+    const hourlyForecastDayButtonText = hourlyForecastDayButton?.querySelector("#dayButtonText");
     if (hourlyForecastDayButtonText) {
       hourlyForecastDayButtonText.innerHTML = `${days}`;
     }
     if (index === 0) {
       setHourlyTemps(hourlyTempDayOne);
-      setHourlyWeatherCodes(hourlyWeatherCodeDayOne)
+      setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton1?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 1) {
       setHourlyTemps(hourlyTempDayTwo);
       setHourlyWeatherCodes(hourlyWeatherCodeDayTwo)
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton2?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 2) {
       setHourlyTemps(hourlyTempDayThree);
       setHourlyWeatherCodes(hourlyWeatherCodeDayThree)
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton3?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 3) {
       setHourlyTemps(hourlyTempDayFour);
       setHourlyWeatherCodes(hourlyWeatherCodeDayFour)
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton4?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 4) {
       setHourlyTemps(hourlyTempDayFive);
       setHourlyWeatherCodes(hourlyWeatherCodeDayFive)
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton5?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 5) {
       setHourlyTemps(hourlyTempDaySix);
       setHourlyWeatherCodes(hourlyWeatherCodeDaySix)
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton6?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 6) {
       setHourlyTemps(hourlyTempDaySeven);
       setHourlyWeatherCodes(hourlyWeatherCodeDaySeven)
+      hourlyForecastDropdownButton7?.classList.remove('bg-neutral-800');
+      hourlyForecastDropdownButton7?.classList.add('bg-neutral-700');
+      hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton2?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton3?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton4?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton5?.classList.remove('bg-neutral-700');
+      hourlyForecastDropdownButton6?.classList.remove('bg-neutral-700');
     }
   }
 
@@ -461,7 +525,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-        <div className='w-full flex flex-col items-center'>
+        <div className='w-full flex flex-col items-center mb-5'>
           <div className='w-[90%] bg-neutral-800 rounded-lg px-5 py-0 pt-5 h-[685px] overflow-scroll'>
             <div className='flex items-center justify-between mb-5'>
               <div className='font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
@@ -473,78 +537,13 @@ export default function Dashboard() {
             </div>
             <div className='overflow-y-scroll h-[595px] snap-y'>
               <div className='snap-start'>
-                <div className=''>
-                  <HourlyForecast hour={hours[0]} hourlyWeatherCode={hourlyWeatherCodes[0]} hourlyTemperature={hourlyTemps[0]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[1]} hourlyWeatherCode={hourlyWeatherCodes[1]} hourlyTemperature={hourlyTemps[1]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[2]} hourlyWeatherCode={hourlyWeatherCodes[2]} hourlyTemperature={hourlyTemps[2]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[3]} hourlyWeatherCode={hourlyWeatherCodes[3]} hourlyTemperature={hourlyTemps[3]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[4]} hourlyWeatherCode={hourlyWeatherCodes[4]} hourlyTemperature={hourlyTemps[4]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[5]} hourlyWeatherCode={hourlyWeatherCodes[5]} hourlyTemperature={hourlyTemps[5]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[6]} hourlyWeatherCode={hourlyWeatherCodes[6]} hourlyTemperature={hourlyTemps[6]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[7]} hourlyWeatherCode={hourlyWeatherCodes[7]} hourlyTemperature={hourlyTemps[7]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[8]} hourlyWeatherCode={hourlyWeatherCodes[8]} hourlyTemperature={hourlyTemps[8]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[9]} hourlyWeatherCode={hourlyWeatherCodes[9]} hourlyTemperature={hourlyTemps[9]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[10]} hourlyWeatherCode={hourlyWeatherCodes[10]} hourlyTemperature={hourlyTemps[10]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[11]} hourlyWeatherCode={hourlyWeatherCodes[11]} hourlyTemperature={hourlyTemps[11]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[12]} hourlyWeatherCode={hourlyWeatherCodes[12]} hourlyTemperature={hourlyTemps[12]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[13]} hourlyWeatherCode={hourlyWeatherCodes[13]} hourlyTemperature={hourlyTemps[13]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[14]} hourlyWeatherCode={hourlyWeatherCodes[14]} hourlyTemperature={hourlyTemps[14]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[15]} hourlyWeatherCode={hourlyWeatherCodes[15]} hourlyTemperature={hourlyTemps[15]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[16]} hourlyWeatherCode={hourlyWeatherCodes[16]} hourlyTemperature={hourlyTemps[16]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[17]} hourlyWeatherCode={hourlyWeatherCodes[17]} hourlyTemperature={hourlyTemps[17]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[18]} hourlyWeatherCode={hourlyWeatherCodes[18]} hourlyTemperature={hourlyTemps[18]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[19]} hourlyWeatherCode={hourlyWeatherCodes[19]} hourlyTemperature={hourlyTemps[19]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[20]} hourlyWeatherCode={hourlyWeatherCodes[20]} hourlyTemperature={hourlyTemps[20]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[21]} hourlyWeatherCode={hourlyWeatherCodes[21]} hourlyTemperature={hourlyTemps[21]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[22]} hourlyWeatherCode={hourlyWeatherCodes[22]} hourlyTemperature={hourlyTemps[22]} />
-                </div>
-                <div className='snap-start'>
-                  <HourlyForecast hour={hours[23]} hourlyWeatherCode={hourlyWeatherCodes[23]} hourlyTemperature={hourlyTemps[23]} />
-                </div> 
+                {hours.map((hourLabel, index) => (
+                  <div key={index}>
+                    <div className='snap-start'>
+                      <HourlyForecast hour={hourLabel} hourlyWeatherCode={hourlyWeatherCodes[index]} hourlyTemperature={hourlyTemps[index]} />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
