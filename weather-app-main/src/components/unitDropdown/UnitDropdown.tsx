@@ -3,8 +3,13 @@ import Image from 'next/image'
 import unitDropdownIcon from '../../../public/icon-units.svg'
 import downArrow from '../../../public/icon-dropdown.svg'
 
+interface UnitDropdownProps {
+  switchToImperial: () => void;
+  nextUnit?: string;
+}
 
-function UnitDropdown() {
+
+function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
 
   const dropdownMenuRef = useRef<HTMLDivElement>(null)
 
@@ -22,9 +27,7 @@ function UnitDropdown() {
     })
   })*/
 
-  const switchToImperial = () => {
-    console.log('switched to imperial')
-  }
+
 
   return (
     <div>
@@ -38,7 +41,7 @@ function UnitDropdown() {
       <div id='unit-menu' ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
         <div className='bg-neutral-800 w-[214px] right-0 rounded-lg absolute mt-2 py-1.5 px-2'>
           <div className='mb-1'>
-            <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5' onClick={switchToImperial}>Switch to Imperial</button>
+            <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5' onClick={switchToImperial}>Switch to {nextUnit}</button>
           </div>
           <div className='mb-1'>
             <div className='font-dm-sans font-medium text-neutral-300 text-sm mb-2 h-[23px]'>

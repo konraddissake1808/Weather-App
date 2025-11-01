@@ -3,11 +3,10 @@ import React from 'react'
 interface OtherDataCardProps {
   otherDataTitle?: string;
   otherData?: string | number | null;
-  otherDataUnitMetric?: string;
-  otherDataUnitImperial?: string;
+  otherDataUnit?: string;
 }
 
-function OtherDataCard({otherDataTitle, otherData, otherDataUnitMetric, otherDataUnitImperial}: OtherDataCardProps) {
+function OtherDataCard({otherDataTitle, otherData, otherDataUnit}: OtherDataCardProps) {
 
 
 
@@ -18,7 +17,7 @@ function OtherDataCard({otherDataTitle, otherData, otherDataUnitMetric, otherDat
                 <p>{otherDataTitle}</p>
             </div>
             <div className='text-[32px] font-light text-neutral-0 font-dm-sans'>
-                <p>{otherData}{otherDataUnitMetric}</p>
+                <p>{otherData}{otherDataUnit}</p>
             </div>
         </div>
     </div>

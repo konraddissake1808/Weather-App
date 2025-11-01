@@ -46,7 +46,6 @@ export default function Dashboard() {
     fetchWeatherData();
   }, []);
 
-  console.log(weatherData);
   //date
   // Fallback values if weatherData is not yet loaded
   const date = weatherData && weatherData.hourly && weatherData.hourly.time && weatherData.hourly.time.length > 0
@@ -129,7 +128,6 @@ export default function Dashboard() {
     const timeValues = weatherData ? new Date(weatherData.daily.time[x]).toLocaleDateString('en-US', { weekday: 'long' }) : "";
     days.push(timeValues);
   }
-  console.log(days)
   
   //max temp
   const maxTempDayOne = weatherData
@@ -325,9 +323,7 @@ export default function Dashboard() {
       setHourlyTemps(hourlyTempDayOne);
       setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
     }
-  }, [weatherData]);
-
-  console.log(hourlyTemps);
+  }, [weatherData, currentHourIndex]);
 
   //current country
   const country = weatherData && weatherData.location && weatherData.location.country
@@ -335,15 +331,14 @@ export default function Dashboard() {
     : '';
 
   const otherDataTitle = ['Feels Like', 'Humidity', 'Wind', 'Precipitation'];
-  const otherDataUnitMetric = ["°", "%", "km/h", "mm"];
-  const otherDataUnitImperial = ["°", "%", "mph", "in"];
+  const otherDataUnitMetric = ["°", "%", " km/h", " mm"];
+  const otherDataUnitImperial = ["°", "%", " mph", " in"];
 
   const hours = ['12 AM', '1 AM', '2 AM', '3 AM', '4 AM', '5 AM', '6 AM', '7 AM', '8 AM', '9 AM', '10 AM', '11 AM', '12 PM', '1 PM', '2 PM', '3 PM', '4 PM', '5 PM', '6 PM', '7 PM', '8 PM', '9 PM', '10 PM', '11 PM'];
 
   function changeForecastDay(days:string, index:number) {
     console.log(`${days} clicked at index ${index}`);
     const hourlyForecastDayButton = document.getElementById('dayButton');
-    //const hourlyForecastDropdownContainer = document.getElementById('hourlyForecastDropdownContainer')
     const hourlyForecastDropdownButton1 = document.getElementById('hourlyForecastButton0');
     const hourlyForecastDropdownButton2 = document.getElementById('hourlyForecastButton1');
     const hourlyForecastDropdownButton3 = document.getElementById('hourlyForecastButton2');
@@ -442,6 +437,78 @@ export default function Dashboard() {
   }
 
   // You can toggle between metric and imperial units as needed
+  const [isMetric, setisMetric] = useState(true);
+  const [nextUnit, setNextUnit] = useState("Imperial");
+  const [dataUnit, setDataUnit] = useState(otherDataUnitMetric)
+  const [currentTemperature, setCurrentTemperature] = useState(temperature);
+  const [feelsLikeTemperature, setFeelsLikeTemperature] = useState(feelsLike);
+  const [windSpeed, setWindSpeed] = useState(wind);
+  const [precipitationValue, setPrecipitationVaue] = useState(precipitation)
+
+  useEffect(() => {
+    if(weatherData) {
+      const getCurrentHourIndex = () => {
+      if (!weatherData || !weatherData.hourly || !weatherData.hourly.time) return 0;
+        const now = new Date();
+        // Convert now to the location's timezone
+        const tz = weatherData.location.timezone;
+        const nowTz = new Date(now.toLocaleString('en-US', { timeZone: tz }));
+        // Find the closest hour in the array
+        return weatherData.hourly.time.findIndex((t: string | Date) => {
+          const hour = new Date(t).getHours();
+          return hour === nowTz.getHours();
+        });
+      };
+      const currentHourIndex = getCurrentHourIndex();
+
+      //initialize current temperature
+      const initialCurrentTemp = weatherData
+      ? Math.round(weatherData.hourly.temperature_2m[currentHourIndex])
+      : 0;
+
+      //initialize feels like temperature
+      const initialFeelslikeTemp = weatherData
+      ? Math.round(weatherData.hourly.apparent_temperature[currentHourIndex])
+      : 0;
+
+      //initialize wind speed
+      const initialWindSpeed = weatherData
+    ? Math.round(weatherData.hourly.windspeed_10m[currentHourIndex])
+    : 0;
+
+      //initialize precipitation
+      const initialPrecipitation = weatherData
+    ? Math.round(weatherData.hourly.precipitation[currentHourIndex] * 100) / 100 // round to 2 decimal places
+    : 0;
+
+      setCurrentTemperature(initialCurrentTemp);
+      setFeelsLikeTemperature(initialFeelslikeTemp);
+      setWindSpeed(initialWindSpeed);
+      setPrecipitationVaue(initialPrecipitation);
+    }
+  },[weatherData])
+
+  const switchToImperial = () => {
+    if (isMetric === true) {
+      setisMetric(false);
+      console.log(isMetric);
+      setNextUnit("Metric");
+      setDataUnit(otherDataUnitImperial)
+      setCurrentTemperature(Math.round(temperature * 9/5) + 32);
+      setFeelsLikeTemperature(Math.round(feelsLike * 9/5) + 32);
+      setWindSpeed(Math.round(wind * 0.621371));
+      setPrecipitationVaue(Math.round(precipitation / 25.4 * 100) / 100);
+    } else if (isMetric === false) {
+      setisMetric(true);
+      console.log(isMetric);
+      setNextUnit("Imperial");
+      setCurrentTemperature(temperature);
+      setFeelsLikeTemperature(feelsLike);
+      setWindSpeed(wind);
+      setPrecipitationVaue(precipitation);
+      setDataUnit(otherDataUnitMetric)
+    }
+  }
  /* const useMetric = true; // Change to false for imperial units
   const otherDataUnit = useMetric ? otherDataUnitMetric : otherDataUnitImperial;  */
   
@@ -462,7 +529,7 @@ export default function Dashboard() {
             />
           </div>
           <div>
-            <UnitDropdown />
+            <UnitDropdown switchToImperial={switchToImperial} nextUnit={nextUnit} />
           </div>
         </div>
         <div className='w-[90%] flex flex-col items-center mt-12'>
@@ -474,7 +541,7 @@ export default function Dashboard() {
         </div>
         <div className="mt-8 w-full flex items-center justify-center">
           {weatherData ? (
-            <TodayCard date={date} temperature={temperature} city={city} country={country} weatherCode={weatherCode} />
+            <TodayCard date={date} temperature={currentTemperature} city={city} country={country} weatherCode={weatherCode} />
           ) : (
             <div className="text-white">Loading weather data...</div>
           )}
@@ -482,16 +549,16 @@ export default function Dashboard() {
         <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-5 mb-8'>
           <div className='text-white text-2xl w-full font-semibold md:mb-0 grid grid-cols-2 grid-rows-2 gap-4'>
             <div className='flex flex-col items-center w-full'>
-              <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLike} otherDataUnitMetric={otherDataUnitMetric[0]} otherDataUnitImperial={otherDataUnitImperial[0]} />
+              <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLikeTemperature} otherDataUnit={dataUnit[0]} />
             </div>
             <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnitMetric={otherDataUnitMetric[1]} otherDataUnitImperial={otherDataUnitImperial[1]} />
+              <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnit={dataUnit[1]} />
             </div>
             <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={wind} otherDataUnitMetric={otherDataUnitMetric[2]} otherDataUnitImperial={otherDataUnitImperial[2]} />
+              <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={dataUnit[2]} />
             </div>
             <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitation} otherDataUnitMetric={otherDataUnitMetric[3]} otherDataUnitImperial={otherDataUnitImperial[3]} />
+              <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={dataUnit[3]} />
             </div>
           </div>
         </div>
