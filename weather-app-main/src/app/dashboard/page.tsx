@@ -10,6 +10,7 @@ import DailyForecastCard from '@/components/dailyForecastCard/DailyForecastCard'
 import HourlyForecast from '@/components/hourlyForecastComponent.tsx/HourlyForecast';
 import UnitDropdown from '@/components/unitDropdown/UnitDropdown';
 import HourlyForecastDropdown from '@/components/hourlyForecastDropdown/HourlyForecastDropdown';
+import { log } from 'console';
 
 /*interface City {
   name: string;
@@ -128,75 +129,35 @@ export default function Dashboard() {
     const timeValues = weatherData ? new Date(weatherData.daily.time[x]).toLocaleDateString('en-US', { weekday: 'long' }) : "";
     days.push(timeValues);
   }
-  
+
   //max temp
-  const maxTempDayOne = weatherData
-    ?Math.round(weatherData.daily.temperature_2m_max[0])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const maxTemps: any[] = [];
+  for(let i = 0; i < 7; i++) {
+    const maxTempValue = weatherData
+    ?Math.round(weatherData.daily.temperature_2m_max[i])
     : 0;
-  const maxTempDayTwo = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_max[1])
-    : 0;
-  const maxTempDayThree = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_max[2])
-    : 0;
-  const maxTempDayFour = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_max[3])
-    : 0;
-  const maxTempDayFive = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_max[4])
-    : 0;
-  const maxTempDaySix = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_max[5])
-    : 0;
-  const maxTempDaySeven = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_max[6])
-    : 0;
-  
+    maxTemps.push(maxTempValue);
+  }
+
   //min temp
-  const minTempDayOne = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[0])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const minTemps: any[] = [];
+  for(let i = 0; i < 7; i++) {
+    const minTempValue = weatherData
+    ?Math.round(weatherData.daily.temperature_2m_min[i])
     : 0;
-  const minTempDayTwo = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[1])
-    : 0;
-  const minTempDayThree = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[2])
-    : 0;
-  const minTempDayFour = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[3])
-    : 0;
-  const minTempDayFive = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[4])
-    : 0;
-  const minTempDaySix = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[5])
-    : 0;
-  const minTempDaySeven = weatherData
-    ? Math.round(weatherData.daily.temperature_2m_min[6])
-    : 0;
+    minTemps.push(minTempValue);
+  }
 
   //daily weather code
-  const weatherCodeDailyDayOne = weatherData
-    ? weatherData.daily.weathercode[0]
+  const dailyWeatherCodes = [];
+  for(let i = 0; i < 7; i++) {
+    const dailyWeatherCodesValues = weatherData
+    ? weatherData.daily.weathercode[i]
     : 0;
-  const weatherCodeDailyDayTwo = weatherData
-    ? weatherData.daily.weathercode[1]
-    : 0;
-  const weatherCodeDailyDayThree = weatherData
-    ? weatherData.daily.weathercode[2]
-    : 0;
-  const weatherCodeDailyDayFour = weatherData
-    ? weatherData.daily.weathercode[3]
-    : 0;
-  const weatherCodeDailyDayFive = weatherData
-    ? weatherData.daily.weathercode[4]
-    : 0;
-  const weatherCodeDailyDaySix = weatherData
-    ? weatherData.daily.weathercode[5]
-    : 0;
-  const weatherCodeDailyDaySeven = weatherData
-    ? weatherData.daily.weathercode[6]
-    : 0;
+    dailyWeatherCodes.push(dailyWeatherCodesValues);
+  }
 
   //Hourly forecast
   //Day One Temperature
@@ -443,7 +404,9 @@ export default function Dashboard() {
   const [currentTemperature, setCurrentTemperature] = useState(temperature);
   const [feelsLikeTemperature, setFeelsLikeTemperature] = useState(feelsLike);
   const [windSpeed, setWindSpeed] = useState(wind);
-  const [precipitationValue, setPrecipitationVaue] = useState(precipitation)
+  const [precipitationValue, setPrecipitationVaue] = useState(precipitation);
+  const [maximumTemperatureValues, setMaximumTemperatureValues] = useState([0]);
+  const [minimumTemperatureValues, setMinimumTemperatureValues] = useState([0])
 
   useEffect(() => {
     if(weatherData) {
@@ -468,23 +431,47 @@ export default function Dashboard() {
 
       //initialize feels like temperature
       const initialFeelslikeTemp = weatherData
-      ? Math.round(weatherData.hourly.apparent_temperature[currentHourIndex])
-      : 0;
+        ? Math.round(weatherData.hourly.apparent_temperature[currentHourIndex])
+        : 0;
 
       //initialize wind speed
       const initialWindSpeed = weatherData
-    ? Math.round(weatherData.hourly.windspeed_10m[currentHourIndex])
-    : 0;
+      ? Math.round(weatherData.hourly.windspeed_10m[currentHourIndex])
+      : 0;
 
       //initialize precipitation
       const initialPrecipitation = weatherData
-    ? Math.round(weatherData.hourly.precipitation[currentHourIndex] * 100) / 100 // round to 2 decimal places
-    : 0;
+      ? Math.round(weatherData.hourly.precipitation[currentHourIndex] * 100) / 100 // round to 2 decimal places
+      : 0;
+
+      //initialize maximum teperatures
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initialMaxTemps:any[] = [];
+      for(let i = 0; i < 7; i++) {
+        const maximumTempValue = weatherData
+        ?Math.round(weatherData.daily.temperature_2m_max[i])
+        : 0;
+        initialMaxTemps.push(maximumTempValue);
+      }
+      
+
+      //min temp
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initialMinTemps: any[] = [];
+      for(let i = 0; i < 7; i++) {
+        const minimumTempValue = weatherData
+        ?Math.round(weatherData.daily.temperature_2m_min[i])
+        : 0;
+        initialMinTemps.push(minimumTempValue);
+      }
+
 
       setCurrentTemperature(initialCurrentTemp);
       setFeelsLikeTemperature(initialFeelslikeTemp);
       setWindSpeed(initialWindSpeed);
       setPrecipitationVaue(initialPrecipitation);
+      setMaximumTemperatureValues(initialMaxTemps);
+      setMinimumTemperatureValues(initialMinTemps);
     }
   },[weatherData])
 
@@ -498,6 +485,20 @@ export default function Dashboard() {
       setFeelsLikeTemperature(Math.round(feelsLike * 9/5) + 32);
       setWindSpeed(Math.round(wind * 0.621371));
       setPrecipitationVaue(Math.round(precipitation / 25.4 * 100) / 100);
+
+      const imperialMaxTemps = []
+      for(let i = 0; i < 7; i++) {
+        const imperialmaxTempValue = Math.round(maximumTemperatureValues[i] * 9/5) + 32;
+        imperialMaxTemps.push(imperialmaxTempValue)
+      }
+      const imperialMinTemps = []
+      for(let i = 0; i < 7; i++) {
+        const imperialminTempValue = Math.round(minimumTemperatureValues[i] * 9/5) + 32;
+        imperialMinTemps.push(imperialminTempValue)
+      }
+
+      setMaximumTemperatureValues(imperialMaxTemps);
+      setMinimumTemperatureValues(imperialMinTemps);
     } else if (isMetric === false) {
       setisMetric(true);
       console.log(isMetric);
@@ -506,9 +507,12 @@ export default function Dashboard() {
       setFeelsLikeTemperature(feelsLike);
       setWindSpeed(wind);
       setPrecipitationVaue(precipitation);
-      setDataUnit(otherDataUnitMetric)
+      setDataUnit(otherDataUnitMetric);
+      setMaximumTemperatureValues(maxTemps);
+      setMinimumTemperatureValues(minTemps);
     }
   }
+  console.log(maximumTemperatureValues)
  /* const useMetric = true; // Change to false for imperial units
   const otherDataUnit = useMetric ? otherDataUnitMetric : otherDataUnitImperial;  */
   
@@ -569,25 +573,25 @@ export default function Dashboard() {
           <div className='w-full'>
             <div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4'>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDayOne} maxTemp={maxTempDayOne} minTemp={minTempDayOne} date={firstDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[0]} maxTemp={maximumTemperatureValues[0]} minTemp={minimumTemperatureValues[0]} date={firstDay} />
               </div>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDayTwo} maxTemp={maxTempDayTwo} minTemp={minTempDayTwo} date={secondDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[1]} maxTemp={maximumTemperatureValues[1]} minTemp={minimumTemperatureValues[1]} date={secondDay} />
               </div>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDayThree} maxTemp={maxTempDayThree} minTemp={minTempDayThree} date={thirdDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[2]} maxTemp={maximumTemperatureValues[2]} minTemp={minimumTemperatureValues[2]} date={thirdDay} />
               </div>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDayFour} maxTemp={maxTempDayFour} minTemp={minTempDayFour} date={fourthDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[3]} maxTemp={maximumTemperatureValues[3]} minTemp={minimumTemperatureValues[3]} date={fourthDay} />
               </div>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDayFive} maxTemp={maxTempDayFive} minTemp={minTempDayFive} date={fifthDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[4]} maxTemp={maximumTemperatureValues[4]} minTemp={minimumTemperatureValues[4]} date={fifthDay} />
               </div>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDaySix} maxTemp={maxTempDaySix} minTemp={minTempDaySix} date={sixthDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[5]} maxTemp={maximumTemperatureValues[5]} minTemp={minimumTemperatureValues[5]} date={sixthDay} />
               </div>
               <div>
-                <DailyForecastCard weatherCode={weatherCodeDailyDaySeven} maxTemp={maxTempDaySeven} minTemp={minTempDaySeven} date={seventhDay} />
+                <DailyForecastCard weatherCode={dailyWeatherCodes[6]} maxTemp={maximumTemperatureValues[6]} minTemp={minimumTemperatureValues[6]} date={seventhDay} />
               </div>
             </div>
           </div>
