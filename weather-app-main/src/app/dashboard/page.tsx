@@ -10,7 +10,7 @@ import DailyForecastCard from '@/components/dailyForecastCard/DailyForecastCard'
 import HourlyForecast from '@/components/hourlyForecastComponent.tsx/HourlyForecast';
 import UnitDropdown from '@/components/unitDropdown/UnitDropdown';
 import HourlyForecastDropdown from '@/components/hourlyForecastDropdown/HourlyForecastDropdown';
-import { log } from 'console';
+
 
 /*interface City {
   name: string;
@@ -167,12 +167,26 @@ export default function Dashboard() {
     const tempDayOne = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayOne.push(tempDayOne);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayOneImperial: any[] = [];
+  for(let x=0; x<25; x++) {
+    const initTempDayOne = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDayOneImp = Math.round((initTempDayOne * 9/5) + 32)
+    hourlyTempDayOneImperial.push(initTempDayOneImp);
+  }
   //Day Two Tempemperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyTempDayTwo: any[] = [];
   for(let x=25; x<48; x++) {
     const tempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayTwo.push(tempDayTwo);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayTwoImperial: any[] = [];
+  for(let x=25; x<48; x++) {
+    const initTempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDayTwoImp = Math.round((initTempDayTwo * 9/5) + 32)
+    hourlyTempDayTwoImperial.push(initTempDayTwoImp);
   }
   //Day Three Tempemperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -181,12 +195,26 @@ export default function Dashboard() {
     const tempDayThree = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayThree.push(tempDayThree);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayThreeImperial: any[] = [];
+  for(let x=48; x<72; x++) {
+    const initTempDayThree = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDayThreeImp = Math.round((initTempDayThree * 9/5) + 32)
+    hourlyTempDayThreeImperial.push(initTempDayThreeImp);
+  }
   //Day Four Tempemperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyTempDayFour: any[] = [];
   for(let x=72; x<96; x++) {
     const tempDayFour = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayFour.push(tempDayFour);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayFourImperial: any[] = [];
+  for(let x=72; x<96; x++) {
+    const initTempDayFour = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDayFourImp = Math.round((initTempDayFour * 9/5) + 32)
+    hourlyTempDayFourImperial.push(initTempDayFourImp);
   }
   //Day Five Tempemperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -195,6 +223,13 @@ export default function Dashboard() {
     const tempDayFive = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayFive.push(tempDayFive);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDayFiveImperial: any[] = [];
+  for(let x=96; x<120; x++) {
+    const initTempDayFive = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDayFiveImp = Math.round((initTempDayFive * 9/5) + 32)
+    hourlyTempDayFiveImperial.push(initTempDayFiveImp);
+  }
   //Day Six Tempemperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyTempDaySix: any[] = [];
@@ -202,12 +237,26 @@ export default function Dashboard() {
     const tempDaySix = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDaySix.push(tempDaySix);
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDaySixImperial: any[] = [];
+  for(let x=120; x<144; x++) {
+    const initTempDaySix = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDaySixImp = Math.round((initTempDaySix * 9/5) + 32)
+    hourlyTempDaySixImperial.push(initTempDaySixImp);
+  }
   //Day Seven Tempemperature
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyTempDaySeven: any[] = [];
   for(let x=144; x<168; x++) {
     const tempDaySeven = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDaySeven.push(tempDaySeven);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hourlyTempDaySevenImperial: any[] = [];
+  for(let x=144; x<168; x++) {
+    const initTempDaySeven = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+    const initTempDaySevenImp = Math.round((initTempDaySeven * 9/5) + 32)
+    hourlyTempDaySevenImperial.push(initTempDaySevenImp);
   }
 
   //Day One Weather code
@@ -260,8 +309,27 @@ export default function Dashboard() {
     hourlyWeatherCodeDaySeven.push(weatherCodeDaySeven);
   }
 
-  const [hourlyTemps, setHourlyTemps] = useState<number[]>(hourlyTempDayOne);
+console.log(hourlyTempDayOne); 
+
+  const [hourlyTemps, setHourlyTemps] = useState<number[]>([0]);
   const [hourlyWeatherCodes, setHourlyWeatherCodes] = useState<number[]>(hourlyWeatherCodeDayOne);
+  const [hourlyTemperatureDayOne, setHourlyTemperatureDayOne] = useState(hourlyTempDayOne);
+  const [hourlyTemperatureDayTwo, setHourlyTemperatureDayTwo] = useState([0]);
+  const [hourlyTemperatureDayThree, setHourlyTemperatureDayThree] = useState([0]);
+  const [hourlyTemperatureDayFour, setHourlyTemperatureDayFour] = useState([0]);
+  const [hourlyTemperatureDayFive, setHourlyTemperatureDayFive] = useState([0]);
+  const [hourlyTemperatureDaySix, setHourlyTemperatureDaySix] = useState([0]);
+  const [hourlyTemperatureDaySeven, setHourlyTemperatureDaySeven] = useState([0]);
+
+  /*setHourlyTemperatureDayOne(hourlyTempDayOne);
+  setHourlyTemperatureDayTwo(hourlyTempDayTwo);
+  setHourlyTemperatureDayThree(hourlyTempDayThree);
+  setHourlyTemperatureDayFour(hourlyTempDayFour);
+  setHourlyTemperatureDayFive(hourlyTempDayFive);
+  setHourlyTemperatureDaySix(hourlyTempDaySix);
+  setHourlyTemperatureDaySeven(hourlyTempDaySeven);*/
+
+
   useEffect(() => {
     if (weatherData) {
       //Hourly forecast
@@ -281,10 +349,19 @@ export default function Dashboard() {
         hourlyWeatherCodeDayOne.push(weatherCodeDayOne);
       }
       
-      setHourlyTemps(hourlyTempDayOne);
+      setHourlyTemperatureDayOne(hourlyTempDayOne)
       setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
     }
+    
   }, [weatherData, currentHourIndex]);
+  
+  useEffect(() => {
+    for(let i = 0; i < 1; i++) {
+      setHourlyTemps(hourlyTemperatureDayOne)
+    }
+  }, [hourlyTemperatureDayOne])
+  
+  
 
   //current country
   const country = weatherData && weatherData.location && weatherData.location.country
@@ -312,7 +389,7 @@ export default function Dashboard() {
       hourlyForecastDayButtonText.innerHTML = `${days}`;
     }
     if (index === 0) {
-      setHourlyTemps(hourlyTempDayOne);
+      setHourlyTemps(hourlyTemperatureDayOne);
       setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
       hourlyForecastDropdownButton1?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton1?.classList.add('bg-neutral-700');
@@ -324,7 +401,7 @@ export default function Dashboard() {
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 1) {
-      setHourlyTemps(hourlyTempDayTwo);
+      setHourlyTemps(hourlyTemperatureDayTwo);
       setHourlyWeatherCodes(hourlyWeatherCodeDayTwo)
       hourlyForecastDropdownButton2?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton2?.classList.add('bg-neutral-700');
@@ -336,7 +413,7 @@ export default function Dashboard() {
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 2) {
-      setHourlyTemps(hourlyTempDayThree);
+      setHourlyTemps(hourlyTemperatureDayThree);
       setHourlyWeatherCodes(hourlyWeatherCodeDayThree)
       hourlyForecastDropdownButton3?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton3?.classList.add('bg-neutral-700');
@@ -348,7 +425,7 @@ export default function Dashboard() {
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 3) {
-      setHourlyTemps(hourlyTempDayFour);
+      setHourlyTemps(hourlyTemperatureDayFour);
       setHourlyWeatherCodes(hourlyWeatherCodeDayFour)
       hourlyForecastDropdownButton4?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton4?.classList.add('bg-neutral-700');
@@ -360,7 +437,7 @@ export default function Dashboard() {
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 4) {
-      setHourlyTemps(hourlyTempDayFive);
+      setHourlyTemps(hourlyTemperatureDayFive);
       setHourlyWeatherCodes(hourlyWeatherCodeDayFive)
       hourlyForecastDropdownButton5?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton5?.classList.add('bg-neutral-700');
@@ -372,7 +449,7 @@ export default function Dashboard() {
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 5) {
-      setHourlyTemps(hourlyTempDaySix);
+      setHourlyTemps(hourlyTemperatureDaySix);
       setHourlyWeatherCodes(hourlyWeatherCodeDaySix)
       hourlyForecastDropdownButton6?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton6?.classList.add('bg-neutral-700');
@@ -384,7 +461,7 @@ export default function Dashboard() {
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-700');
     }
     else if (index === 6) {
-      setHourlyTemps(hourlyTempDaySeven);
+      setHourlyTemps(hourlyTemperatureDaySeven);
       setHourlyWeatherCodes(hourlyWeatherCodeDaySeven)
       hourlyForecastDropdownButton7?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton7?.classList.add('bg-neutral-700');
@@ -406,8 +483,8 @@ export default function Dashboard() {
   const [windSpeed, setWindSpeed] = useState(wind);
   const [precipitationValue, setPrecipitationVaue] = useState(precipitation);
   const [maximumTemperatureValues, setMaximumTemperatureValues] = useState([0]);
-  const [minimumTemperatureValues, setMinimumTemperatureValues] = useState([0])
-
+  const [minimumTemperatureValues, setMinimumTemperatureValues] = useState([0]);
+  
   useEffect(() => {
     if(weatherData) {
       const getCurrentHourIndex = () => {
@@ -464,8 +541,59 @@ export default function Dashboard() {
         : 0;
         initialMinTemps.push(minimumTempValue);
       }
+      //Hourly forecast
+      //Day One Temperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDayOneImperial: any[] = [];
+      for(let x=0; x<25; x++) {
+        const initTempDayOne = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        const initTempDayOneImp = Math.round((initTempDayOne * 9/5) + 32)
+        initHourlyTempDayOneImperial.push(initTempDayOneImp);
+      }
+      //Day Two Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDayTwo: any[] = [];
+      for(let x=25; x<48; x++) {
+        const initTempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        initHourlyTempDayTwo.push(initTempDayTwo);
+      }
+      //Day Three Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDayThree: any[] = [];
+      for(let x=48; x<72; x++) {
+        const initTempDayThree = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        initHourlyTempDayThree.push(initTempDayThree);
+      }
+      //Day Four Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDayFour: any[] = [];
+      for(let x=72; x<96; x++) {
+        const initTempDayFour = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        initHourlyTempDayFour.push(initTempDayFour);
+      }
+      //Day Five Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDayFive: any[] = [];
+      for(let x=96; x<120; x++) {
+        const initTempDayFive = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        initHourlyTempDayFive.push(initTempDayFive);
+      }
+      //Day Six Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDaySix: any[] = [];
+      for(let x=120; x<144; x++) {
+        const initTempDaySix = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        initHourlyTempDaySix.push(initTempDaySix);
+      }
+      //Day Seven Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const initHourlyTempDaySeven: any[] = [];
+      for(let x=144; x<168; x++) {
+        const initTempDaySeven = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        initHourlyTempDaySeven.push(initTempDaySeven);
+      }
 
-
+      
       setCurrentTemperature(initialCurrentTemp);
       setFeelsLikeTemperature(initialFeelslikeTemp);
       setWindSpeed(initialWindSpeed);
@@ -485,6 +613,14 @@ export default function Dashboard() {
       setFeelsLikeTemperature(Math.round(feelsLike * 9/5) + 32);
       setWindSpeed(Math.round(wind * 0.621371));
       setPrecipitationVaue(Math.round(precipitation / 25.4 * 100) / 100);
+      
+      setHourlyTemperatureDayOne(hourlyTempDayOneImperial)
+      setHourlyTemperatureDayTwo(hourlyTempDayTwoImperial)
+      setHourlyTemperatureDayThree(hourlyTempDayThreeImperial)
+      setHourlyTemperatureDayFour(hourlyTempDayFourImperial)
+      setHourlyTemperatureDayFive(hourlyTempDayFiveImperial)
+      setHourlyTemperatureDaySix(hourlyTempDaySixImperial)
+      setHourlyTemperatureDaySeven(hourlyTempDaySevenImperial)
 
       const imperialMaxTemps = []
       for(let i = 0; i < 7; i++) {
@@ -510,6 +646,13 @@ export default function Dashboard() {
       setDataUnit(otherDataUnitMetric);
       setMaximumTemperatureValues(maxTemps);
       setMinimumTemperatureValues(minTemps);
+      setHourlyTemperatureDayOne(hourlyTempDayOne)
+      setHourlyTemperatureDayTwo(hourlyTempDayTwo)
+      setHourlyTemperatureDayThree(hourlyTempDayThree)
+      setHourlyTemperatureDayFour(hourlyTempDayFour)
+      setHourlyTemperatureDayFive(hourlyTempDayFive)
+      setHourlyTemperatureDaySix(hourlyTempDaySix)
+      setHourlyTemperatureDaySeven(hourlyTempDaySeven)
     }
   }
   console.log(maximumTemperatureValues)
