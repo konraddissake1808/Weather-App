@@ -2,14 +2,21 @@ import React, {useEffect, useRef} from 'react'
 import Image from 'next/image'
 import unitDropdownIcon from '../../../public/icon-units.svg'
 import downArrow from '../../../public/icon-dropdown.svg'
+import checkmarkIcon from '../../../public/icon-checkmark.svg'
 
 interface UnitDropdownProps {
   switchToImperial: () => void;
+  toCelcius: () => void;
+  toFahrenheit: () => void;
+  toMph: () => void;
+  toKph: () => void;
+  toMillimeters: () => void;
+  toInches: () => void;
   nextUnit?: string;
 }
 
 
-function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
+function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCelcius, switchToImperial, nextUnit }: UnitDropdownProps) {
 
   const dropdownMenuRef = useRef<HTMLDivElement>(null)
 
@@ -18,19 +25,20 @@ function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
     dropdownMenuRef.current?.classList.toggle('hidden')
   }
 
-  /*useEffect(()=> {
+  useEffect(()=> {
     document.addEventListener('click', function outsideMenuClick(e){
-      const unitMenu = document.getElementById('unit-menu');
-      if(!unitMenu?.contains(e.target as HTMLElement)) {
-        dropdownMenuRef.current?.classList.toggle('hidden')
+      const unitMenuButton = document.getElementById('unit-menu-button');
+      const unitMenu = document.getElementById("unit-menu")
+      if(!unitMenuButton?.contains(e.target as HTMLElement)) {
+        unitMenu?.classList.add('hidden')
       }
     })
-  })*/
+  })
 
 
 
   return (
-    <div>
+    <div id='unit-menu-button'>
       <div>
         <button className='bg-neutral-800 flex items-center px-4 py-2 rounded-lg' onClick={dropdown}>
           <Image alt='unit dropdown' src={unitDropdownIcon} width={32} height={32} className='w-3.5 h-3.5' />
@@ -38,7 +46,7 @@ function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
           <Image src={downArrow} alt='down arrow' width={32} height={32} className='w-2.5 h-3.5' />
         </button>
       </div>
-      <div id='unit-menu' ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
+      <div  id="unit-menu" ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
         <div className='bg-neutral-800 w-[214px] right-0 rounded-lg absolute mt-2 py-1.5 px-2'>
           <div className='mb-1'>
             <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5' onClick={switchToImperial}>Switch to {nextUnit}</button>
@@ -48,11 +56,29 @@ function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
               <p className='px-1.5 pt-1.5'>Temperature</p>
             </div>
             <div className='font-dm-sans font-medium text-base text-neutral-0'>
-              <div className='mb-1 bg-neutral-700 rounded-lg'>
-                <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>Celsius (°C)</button>
+              <div id='celciusBtn' className='mb-1 bg-neutral-700 rounded-lg'>
+                <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toCelcius}>
+                  <div className='flex justify-between w-full items-center'>
+                    <div>
+                      <p>Celcius</p>
+                    </div>
+                    <div id='celciusCheckmark'>
+                      <Image src={checkmarkIcon} alt='' />
+                    </div>
+                  </div>
+                </button>
               </div>
-              <div>
-                <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>Fahrenheit (°F)</button>
+              <div id='fahrenheitBtn' className='rounded-lg'>
+                <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toFahrenheit}>
+                  <div className='flex justify-between w-full items-center'>
+                    <div>
+                      <p>Fahrenheit</p>
+                    </div>
+                    <div id='fahrenheitCheckmark' className='hidden'>
+                      <Image src={checkmarkIcon} alt='' />
+                    </div>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -64,11 +90,29 @@ function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
               <p className='px-1.5 pt-1.5'>Wind Speed</p>
             </div>
             <div className='font-dm-sans font-medium text-base text-neutral-0'>
-              <div className='mb-1 bg-neutral-700 rounded-lg'>
-                <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>km/h</button>
+              <div id='kphBtn' className='mb-1 bg-neutral-700 rounded-lg'>
+                <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toKph}>
+                  <div className='flex justify-between w-full items-center'>
+                    <div>
+                      <p>km/h</p>
+                    </div>
+                    <div id='kphCheckmark'>
+                      <Image src={checkmarkIcon} alt='' />
+                    </div>
+                  </div>
+                </button>
               </div>
-              <div>
-                <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>mph</button>
+              <div id='mphBtn' className='rounded-lg'>
+                <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toMph}>
+                  <div className='flex justify-between w-full items-center'>
+                    <div>
+                      <p>mph</p>
+                    </div>
+                    <div id='mphCheckmark' className='hidden'>
+                      <Image src={checkmarkIcon} alt='' />
+                    </div>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -80,11 +124,29 @@ function UnitDropdown({ switchToImperial, nextUnit }: UnitDropdownProps) {
               <p className='px-1.5 pt-1.5'>Precipitation</p>
             </div>
             <div className='font-dm-sans font-medium text-base text-neutral-0'>
-              <div className='mb-1 bg-neutral-700 rounded-lg'>
-                <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>Millimeters (mm)</button>
+              <div id='mmBtn' className='mb-1 bg-neutral-700 rounded-lg'>
+                <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toMillimeters}>
+                  <div className='flex justify-between w-full items-center'>
+                    <div>
+                      <p>Millimeters (mm)</p>
+                    </div>
+                    <div id='millimetersCheckmark'>
+                      <Image src={checkmarkIcon} alt='' />
+                    </div>
+                  </div>
+                </button>
               </div>
-              <div>
-                <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>Inches (in)</button>
+              <div id='inchesBtn' className='rounded-lg'>
+                <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toInches}>
+                  <div className='flex justify-between w-full items-center'>
+                    <div>
+                      <p>Inches (in)</p>
+                    </div>
+                    <div id='inchesCheckmark' className='hidden'>
+                      <Image src={checkmarkIcon} alt='' />
+                    </div>
+                  </div>
+                </button>
               </div>
             </div>
           </div>

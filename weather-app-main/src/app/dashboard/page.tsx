@@ -181,6 +181,9 @@ export default function Dashboard() {
     const tempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayTwo.push(tempDayTwo);
   }
+
+  console.log(hourlyTempDayTwo)
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyTempDayTwoImperial: any[] = [];
   for(let x=25; x<48; x++) {
@@ -309,26 +312,15 @@ export default function Dashboard() {
     hourlyWeatherCodeDaySeven.push(weatherCodeDaySeven);
   }
 
-console.log(hourlyTempDayOne); 
-
   const [hourlyTemps, setHourlyTemps] = useState<number[]>([0]);
   const [hourlyWeatherCodes, setHourlyWeatherCodes] = useState<number[]>(hourlyWeatherCodeDayOne);
-  const [hourlyTemperatureDayOne, setHourlyTemperatureDayOne] = useState(hourlyTempDayOne);
+  const [hourlyTemperatureDayOne, setHourlyTemperatureDayOne] = useState([0]);
   const [hourlyTemperatureDayTwo, setHourlyTemperatureDayTwo] = useState([0]);
   const [hourlyTemperatureDayThree, setHourlyTemperatureDayThree] = useState([0]);
   const [hourlyTemperatureDayFour, setHourlyTemperatureDayFour] = useState([0]);
   const [hourlyTemperatureDayFive, setHourlyTemperatureDayFive] = useState([0]);
   const [hourlyTemperatureDaySix, setHourlyTemperatureDaySix] = useState([0]);
   const [hourlyTemperatureDaySeven, setHourlyTemperatureDaySeven] = useState([0]);
-
-  /*setHourlyTemperatureDayOne(hourlyTempDayOne);
-  setHourlyTemperatureDayTwo(hourlyTempDayTwo);
-  setHourlyTemperatureDayThree(hourlyTempDayThree);
-  setHourlyTemperatureDayFour(hourlyTempDayFour);
-  setHourlyTemperatureDayFive(hourlyTempDayFive);
-  setHourlyTemperatureDaySix(hourlyTempDaySix);
-  setHourlyTemperatureDaySeven(hourlyTempDaySeven);*/
-
 
   useEffect(() => {
     if (weatherData) {
@@ -340,7 +332,48 @@ console.log(hourlyTempDayOne);
         const tempDayOne = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
         hourlyTempDayOne.push(tempDayOne);
       }
-
+      //Day Two Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDayTwo: any[] = [];
+      for(let x=25; x<48; x++) {
+        const tempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDayTwo.push(tempDayTwo);
+      }
+      //Day Three Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDayThree: any[] = [];
+      for(let x=48; x<72; x++) {
+        const tempDayThree = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDayThree.push(tempDayThree);
+      }
+      //Day Four Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDayFour: any[] = [];
+      for(let x=72; x<96; x++) {
+        const tempDayFour = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDayFour.push(tempDayFour);
+      }
+      //Day Five Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDayFive: any[] = [];
+      for(let x=96; x<120; x++) {
+        const tempDayFive = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDayFive.push(tempDayFive);
+      }
+      //Day Six Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDaySix: any[] = [];
+      for(let x=120; x<144; x++) {
+        const tempDaySix = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDaySix.push(tempDaySix);
+      }
+      //Day Seven Tempemperature
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hourlyTempDaySeven: any[] = [];
+      for(let x=144; x<168; x++) {
+        const tempDaySeven = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
+        hourlyTempDaySeven.push(tempDaySeven);
+      }
       //Day One Weather code
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const hourlyWeatherCodeDayOne: any[] = [];
@@ -350,6 +383,12 @@ console.log(hourlyTempDayOne);
       }
       
       setHourlyTemperatureDayOne(hourlyTempDayOne)
+      setHourlyTemperatureDayTwo(hourlyTempDayTwo)
+      setHourlyTemperatureDayThree(hourlyTempDayThree)
+      setHourlyTemperatureDayFour(hourlyTempDayFour)
+      setHourlyTemperatureDayFive(hourlyTempDayFive)
+      setHourlyTemperatureDaySix(hourlyTempDaySix)
+      setHourlyTemperatureDaySeven(hourlyTempDaySeven)
       setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
     }
     
@@ -389,7 +428,7 @@ console.log(hourlyTempDayOne);
       hourlyForecastDayButtonText.innerHTML = `${days}`;
     }
     if (index === 0) {
-      setHourlyTemps(hourlyTemperatureDayOne);
+      setHourlyTemps(hourlyTemperatureDayTwo);
       setHourlyWeatherCodes(hourlyWeatherCodeDayOne);
       hourlyForecastDropdownButton1?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton1?.classList.add('bg-neutral-700');
@@ -403,6 +442,7 @@ console.log(hourlyTempDayOne);
     else if (index === 1) {
       setHourlyTemps(hourlyTemperatureDayTwo);
       setHourlyWeatherCodes(hourlyWeatherCodeDayTwo)
+      console.log(hourlyTemperatureDayTwo);
       hourlyForecastDropdownButton2?.classList.remove('bg-neutral-800');
       hourlyForecastDropdownButton2?.classList.add('bg-neutral-700');
       hourlyForecastDropdownButton1?.classList.remove('bg-neutral-700');
@@ -484,6 +524,9 @@ console.log(hourlyTempDayOne);
   const [precipitationValue, setPrecipitationVaue] = useState(precipitation);
   const [maximumTemperatureValues, setMaximumTemperatureValues] = useState([0]);
   const [minimumTemperatureValues, setMinimumTemperatureValues] = useState([0]);
+  const [windUnit, setWindUnit] = useState(" km/h")
+  const [precipitationUnit, setPrecipitationUnit] = useState(" mm")
+
   
   useEffect(() => {
     if(weatherData) {
@@ -609,56 +652,134 @@ console.log(hourlyTempDayOne);
       console.log(isMetric);
       setNextUnit("Metric");
       setDataUnit(otherDataUnitImperial)
-      setCurrentTemperature(Math.round(temperature * 9/5) + 32);
-      setFeelsLikeTemperature(Math.round(feelsLike * 9/5) + 32);
-      setWindSpeed(Math.round(wind * 0.621371));
-      setPrecipitationVaue(Math.round(precipitation / 25.4 * 100) / 100);
-      
-      setHourlyTemperatureDayOne(hourlyTempDayOneImperial)
-      setHourlyTemperatureDayTwo(hourlyTempDayTwoImperial)
-      setHourlyTemperatureDayThree(hourlyTempDayThreeImperial)
-      setHourlyTemperatureDayFour(hourlyTempDayFourImperial)
-      setHourlyTemperatureDayFive(hourlyTempDayFiveImperial)
-      setHourlyTemperatureDaySix(hourlyTempDaySixImperial)
-      setHourlyTemperatureDaySeven(hourlyTempDaySevenImperial)
-
-      const imperialMaxTemps = []
-      for(let i = 0; i < 7; i++) {
-        const imperialmaxTempValue = Math.round(maximumTemperatureValues[i] * 9/5) + 32;
-        imperialMaxTemps.push(imperialmaxTempValue)
-      }
-      const imperialMinTemps = []
-      for(let i = 0; i < 7; i++) {
-        const imperialminTempValue = Math.round(minimumTemperatureValues[i] * 9/5) + 32;
-        imperialMinTemps.push(imperialminTempValue)
-      }
-
-      setMaximumTemperatureValues(imperialMaxTemps);
-      setMinimumTemperatureValues(imperialMinTemps);
+      toFahrenheit();
+      toMph();
+      toInches();
     } else if (isMetric === false) {
       setisMetric(true);
       console.log(isMetric);
       setNextUnit("Imperial");
-      setCurrentTemperature(temperature);
-      setFeelsLikeTemperature(feelsLike);
-      setWindSpeed(wind);
-      setPrecipitationVaue(precipitation);
-      setDataUnit(otherDataUnitMetric);
-      setMaximumTemperatureValues(maxTemps);
-      setMinimumTemperatureValues(minTemps);
-      setHourlyTemperatureDayOne(hourlyTempDayOne)
-      setHourlyTemperatureDayTwo(hourlyTempDayTwo)
-      setHourlyTemperatureDayThree(hourlyTempDayThree)
-      setHourlyTemperatureDayFour(hourlyTempDayFour)
-      setHourlyTemperatureDayFive(hourlyTempDayFive)
-      setHourlyTemperatureDaySix(hourlyTempDaySix)
-      setHourlyTemperatureDaySeven(hourlyTempDaySeven)
+      toCelcius();
+      toKph();
+      toMillimeters();
+      setDataUnit(otherDataUnitMetric)
     }
   }
-  console.log(maximumTemperatureValues)
- /* const useMetric = true; // Change to false for imperial units
-  const otherDataUnit = useMetric ? otherDataUnitMetric : otherDataUnitImperial;  */
-  
+
+  function toCelcius() {
+    const celsiusButton = document.getElementById("celciusBtn");
+    const fahrenheitButton = document.getElementById("fahrenheitBtn");
+    const fahrenheitCheckmark = document.getElementById("fahrenheitCheckmark");
+    const celciusCheckmark = document.getElementById("celciusCheckmark")
+
+    celsiusButton?.classList.add('bg-neutral-700')
+    fahrenheitButton?.classList.remove('bg-neutral-700')
+    fahrenheitCheckmark?.classList.add('hidden')
+    celciusCheckmark?.classList.remove("hidden")
+    setCurrentTemperature(temperature);
+    setFeelsLikeTemperature(feelsLike);
+    setMaximumTemperatureValues(maxTemps);
+    setMinimumTemperatureValues(minTemps);
+    setHourlyTemperatureDayOne(hourlyTempDayOne)
+    setHourlyTemperatureDayTwo(hourlyTempDayTwo)
+    setHourlyTemperatureDayThree(hourlyTempDayThree)
+    setHourlyTemperatureDayFour(hourlyTempDayFour)
+    setHourlyTemperatureDayFive(hourlyTempDayFive)
+    setHourlyTemperatureDaySix(hourlyTempDaySix)
+    setHourlyTemperatureDaySeven(hourlyTempDaySeven)
+  }
+
+  function toFahrenheit(){
+    const celsiusButton = document.getElementById("celciusBtn");
+    const fahrenheitButton = document.getElementById("fahrenheitBtn");
+    const fahrenheitCheckmark = document.getElementById("fahrenheitCheckmark");
+    const celciusCheckmark = document.getElementById("celciusCheckmark")
+
+    celsiusButton?.classList.remove('bg-neutral-700')
+    fahrenheitButton?.classList.add('bg-neutral-700')
+    celciusCheckmark?.classList.add('hidden')
+    fahrenheitCheckmark?.classList.remove("hidden")
+    setCurrentTemperature(Math.round(temperature * 9/5) + 32);
+    setFeelsLikeTemperature(Math.round(feelsLike * 9/5) + 32);
+    setHourlyTemperatureDayOne(hourlyTempDayOneImperial)
+    setHourlyTemperatureDayTwo(hourlyTempDayTwoImperial)
+    setHourlyTemperatureDayThree(hourlyTempDayThreeImperial)
+    setHourlyTemperatureDayFour(hourlyTempDayFourImperial)
+    setHourlyTemperatureDayFive(hourlyTempDayFiveImperial)
+    setHourlyTemperatureDaySix(hourlyTempDaySixImperial)
+    setHourlyTemperatureDaySeven(hourlyTempDaySevenImperial)
+
+    const imperialMaxTemps = []
+    for(let i = 0; i < 7; i++) {
+      const imperialmaxTempValue = Math.round(maximumTemperatureValues[i] * 9/5) + 32;
+      imperialMaxTemps.push(imperialmaxTempValue)
+    }
+    const imperialMinTemps = []
+    for(let i = 0; i < 7; i++) {
+      const imperialminTempValue = Math.round(minimumTemperatureValues[i] * 9/5) + 32;
+      imperialMinTemps.push(imperialminTempValue)
+    }
+
+    setMaximumTemperatureValues(imperialMaxTemps);
+    setMinimumTemperatureValues(imperialMinTemps);
+  }
+
+  function toMph() {
+    const mphButton = document.getElementById('mphBtn')
+    const kphButtn = document.getElementById('kphBtn')
+    const kphCheckmark = document.getElementById('kphCheckmark')
+    const mphCheckmark = document.getElementById('mphCheckmark')
+
+    mphButton?.classList.add('bg-neutral-700')
+    kphButtn?.classList.remove('bg-neutral-700')
+    kphCheckmark?.classList.add('hidden')
+    mphCheckmark?.classList.remove('hidden')
+    setWindSpeed(Math.round(wind * 0.621371));
+    setWindUnit(" mph")
+  }
+
+  function toKph() {
+    const mphButton = document.getElementById('mphBtn')
+    const kphButtn =document.getElementById('kphBtn')
+    const kphCheckmark = document.getElementById('kphCheckmark')
+    const mphCheckmark = document.getElementById('mphCheckmark')
+
+    mphButton?.classList.remove('bg-neutral-700')
+    kphButtn?.classList.add('bg-neutral-700')
+    kphCheckmark?.classList.remove('hidden')
+    mphCheckmark?.classList.add('hidden')
+    setWindSpeed(wind);
+    setWindUnit(" km/h")
+  }
+
+  function toMillimeters() {
+    const mmButton = document.getElementById('mmBtn')
+    const inchesButton = document.getElementById('inchesBtn')
+    const millimetersCheckmark = document.getElementById('millimetersCheckmark')
+    const inchesCheckmark = document.getElementById('inchesCheckmark')
+
+    mmButton?.classList.add('bg-neutral-700')
+    inchesButton?.classList.remove('bg-neutral-700')
+    millimetersCheckmark?.classList.remove('hidden')
+    inchesCheckmark?.classList.add('hidden')
+
+    setPrecipitationVaue(precipitation);
+    setPrecipitationUnit(" mm")
+  }
+
+  function toInches() {
+    const mmButton = document.getElementById('mmBtn')
+    const inchesButton = document.getElementById('inchesBtn')
+    const millimetersCheckmark = document.getElementById('millimetersCheckmark')
+    const inchesCheckmark = document.getElementById('inchesCheckmark')
+
+    mmButton?.classList.remove('bg-neutral-700')
+    inchesButton?.classList.add('bg-neutral-700')
+    millimetersCheckmark?.classList.add('hidden')
+    inchesCheckmark?.classList.remove('hidden')
+    setPrecipitationVaue(Math.round(precipitation / 25.4 * 100) / 100);
+    setPrecipitationUnit(" in")
+  }
   
   return (
     <div className="fex items-center justify-items-center w-full mt-4">
@@ -676,7 +797,7 @@ console.log(hourlyTempDayOne);
             />
           </div>
           <div>
-            <UnitDropdown switchToImperial={switchToImperial} nextUnit={nextUnit} />
+            <UnitDropdown switchToImperial={switchToImperial} toCelcius={toCelcius} toFahrenheit={toFahrenheit} toMph={toMph} toKph={toKph} toInches={toInches} toMillimeters={toMillimeters} nextUnit={nextUnit} />
           </div>
         </div>
         <div className='w-[90%] flex flex-col items-center mt-12'>
@@ -702,10 +823,10 @@ console.log(hourlyTempDayOne);
               <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnit={dataUnit[1]} />
             </div>
             <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={dataUnit[2]} />
+              <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={windUnit} />
             </div>
             <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={dataUnit[3]} />
+              <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={precipitationUnit} />
             </div>
           </div>
         </div>
