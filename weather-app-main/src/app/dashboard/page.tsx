@@ -808,7 +808,7 @@ export default function Dashboard() {
             <SearchBar  />
             <SearchButton />
           </div>
-          <div className='w-full mt-8 mb-5 sm-desktop:flex desktop:h-[693px]'>
+          <div className='w-full mt-8 mb-5 sm-desktop:flex desktop:h-[693px] sm-desktop:justify-center'>
             <div className='w-full flex items-center justify-center tablet:w-full sm-desktop:mr-8 sm-desktop:w-[70%] sm-desktop:h-full desktop:w-[800px]'>
               <div className='w-full flex flex-col justify-center items-center'>
                 <div className="w-full flex items-center justify-center">
@@ -868,7 +868,7 @@ export default function Dashboard() {
             </div>
             <div className='w-full sm-desktop:w-[28%] sm-desktop:h-full sm-desktop:rounded-b-lg desktop:h-full'>
               <div className='w-full flex flex-col items-center'>
-                <div className='w-[90%] bg-neutral-800 rounded-lg px-5 py-0 pt-5 h-[693px] overflow-scroll tablet:w-full'>
+                <div className='w-[90%] bg-neutral-800 rounded-lg px-5 py-0 pt-5 h-[693px] tablet:w-full'>
                   <div className='flex items-center justify-between mb-5'>
                     <div className='font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
                       <p>Hourly Forecast</p>
