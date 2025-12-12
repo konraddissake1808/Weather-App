@@ -32,6 +32,9 @@
   --color-neutral-900: var(--neutral_900);
   --font-dm-sans: var(--font-dm-sans);
   --font-bricolage-grotesque: var(--font-bricolade-grotesque);
+  --breakpoint-tablet: 767px;
+  --breakpoint-sm-desktop: 1023px;
+  --breakpoint-desktop: 1439px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -51,4 +54,12 @@ body {
   background: url('/bg-today-small.svg');
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media (width > 767px) {
+  #today-card {
+    background: url('/bg-today-large.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }

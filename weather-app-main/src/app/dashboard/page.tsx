@@ -782,103 +782,113 @@ export default function Dashboard() {
   }
   
   return (
-    <div className="fex items-center justify-items-center w-full mt-4">
+    <div className="fex items-center justify-items-center w-full mt-4 tablet:px-6 desktop:px-28 desktop:pt-12 desktop:pb-20">
       <div className='w-full flex flex-col items-center'>
-        <div className='w-[90%] flex items-center justify-between'>
-          <div>
-            <Image
-              src="/logo.svg"
-              alt="Weather App Logo"
-              width={128}
-              height={32}
-              priority
+        <div className='w-full flex items-center justify-center flex-col'>
+          <div className='w-[90%] flex items-center justify-between tablet:w-full'>
+            <div>
+              <Image
+                src="/logo.svg"
+                alt="Weather App Logo"
+                width={128}
+                height={32}
+                priority
 
-              className='w-32 h-8'
-            />
-          </div>
-          <div>
-            <UnitDropdown switchToImperial={switchToImperial} toCelcius={toCelcius} toFahrenheit={toFahrenheit} toMph={toMph} toKph={toKph} toInches={toInches} toMillimeters={toMillimeters} nextUnit={nextUnit} />
-          </div>
-        </div>
-        <div className='w-[90%] flex flex-col items-center mt-12'>
-          <h1 className='text-white text-5xl font-bold font-bricolage-grotesque text-center text-balance'>How&apos;s the sky looking today?</h1>
-        </div>
-        <div className='w-[90%] flex flex-col items-center mt-12'>
-          <SearchBar  />
-          <SearchButton />
-        </div>
-        <div className="mt-8 w-full flex items-center justify-center">
-          {weatherData ? (
-            <TodayCard date={date} temperature={currentTemperature} city={city} country={country} weatherCode={weatherCode} />
-          ) : (
-            <div className="text-white">Loading weather data...</div>
-          )}
-        </div>
-        <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-5 mb-8'>
-          <div className='text-white text-2xl w-full font-semibold md:mb-0 grid grid-cols-2 grid-rows-2 gap-4'>
-            <div className='flex flex-col items-center w-full'>
-              <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLikeTemperature} otherDataUnit={dataUnit[0]} />
+                className='w-32 h-8'
+              />
             </div>
             <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnit={dataUnit[1]} />
-            </div>
-            <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={windUnit} />
-            </div>
-            <div>
-              <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={precipitationUnit} />
+              <UnitDropdown switchToImperial={switchToImperial} toCelcius={toCelcius} toFahrenheit={toFahrenheit} toMph={toMph} toKph={toKph} toInches={toInches} toMillimeters={toMillimeters} nextUnit={nextUnit} />
             </div>
           </div>
-        </div>
-        <div className='w-[90%] flex flex-col items-center mb-5'>
-          <div className='w-full mb-5 font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
-            <p>Daily forecasts</p>
+          <div className='w-[90%] flex flex-col items-center mt-12 tablet:w-[482px] tablet:full'>
+            <h1 className='text-white text-5xl font-bold font-bricolage-grotesque text-center text-balance'>How&apos;s the sky looking today?</h1>
           </div>
-          <div className='w-full'>
-            <div className='grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4'>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[0]} maxTemp={maximumTemperatureValues[0]} minTemp={minimumTemperatureValues[0]} date={firstDay} />
-              </div>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[1]} maxTemp={maximumTemperatureValues[1]} minTemp={minimumTemperatureValues[1]} date={secondDay} />
-              </div>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[2]} maxTemp={maximumTemperatureValues[2]} minTemp={minimumTemperatureValues[2]} date={thirdDay} />
-              </div>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[3]} maxTemp={maximumTemperatureValues[3]} minTemp={minimumTemperatureValues[3]} date={fourthDay} />
-              </div>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[4]} maxTemp={maximumTemperatureValues[4]} minTemp={minimumTemperatureValues[4]} date={fifthDay} />
-              </div>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[5]} maxTemp={maximumTemperatureValues[5]} minTemp={minimumTemperatureValues[5]} date={sixthDay} />
-              </div>
-              <div>
-                <DailyForecastCard weatherCode={dailyWeatherCodes[6]} maxTemp={maximumTemperatureValues[6]} minTemp={minimumTemperatureValues[6]} date={seventhDay} />
-              </div>
-            </div>
+          <div className='w-[90%] flex flex-col items-center mt-12 tablet:w-full sm-desktop:w-[720px]'>
+            <SearchBar  />
+            <SearchButton />
           </div>
-        </div>
-        <div className='w-full flex flex-col items-center mb-5'>
-          <div className='w-[90%] bg-neutral-800 rounded-lg px-5 py-0 pt-5 h-[685px] overflow-scroll'>
-            <div className='flex items-center justify-between mb-5'>
-              <div className='font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
-                <p>Hourly Forecast</p>
-              </div>
-              <div>
-                <HourlyForecastDropdown buttonClick={changeForecastDay} firstDay={firstDay} secondDay={secondDay} thirdDay={thirdDay} fourthDay={fourthDay} fithDay={fifthDay} sixthDay={sixthDay} seventhDay={seventhDay} />
-              </div>
-            </div>
-            <div className='overflow-y-scroll h-[595px] snap-y'>
-              <div className='snap-start'>
-                {hours.map((hourLabel, index) => (
-                  <div key={index}>
-                    <div className='snap-start'>
-                      <HourlyForecast hour={hourLabel} hourlyWeatherCode={hourlyWeatherCodes[index]} hourlyTemperature={hourlyTemps[index]} />
+          <div className='w-full mt-8 mb-5 sm-desktop:flex desktop:h-[693px]'>
+            <div className='w-full flex items-center justify-center tablet:w-full sm-desktop:mr-8 sm-desktop:w-[70%] sm-desktop:h-full desktop:w-[800px]'>
+              <div className='w-full flex flex-col justify-center items-center'>
+                <div className="w-full flex items-center justify-center">
+                  {weatherData ? (
+                    <TodayCard date={date} temperature={currentTemperature} city={city} country={country} weatherCode={weatherCode} />
+                  ) : (
+                    <div className="text-white">Loading weather data...</div>
+                  )}
+                </div>
+                <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-5 mb-8 tablet:w-full sm-desktop:mt-8 sm-desktop:mb-12'>
+                  <div className='text-white text-2xl w-full font-semibold md:mb-0 grid grid-cols-2 grid-rows-2 gap-4 tablet:grid-cols-4 tablet:grid-rows-1'>
+                    <div className='flex flex-col items-center w-full'>
+                      <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLikeTemperature} otherDataUnit={dataUnit[0]} />
+                    </div>
+                    <div>
+                      <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnit={dataUnit[1]} />
+                    </div>
+                    <div>
+                      <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={windUnit} />
+                    </div>
+                    <div>
+                      <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={precipitationUnit} />
                     </div>
                   </div>
-                ))}
+                </div>
+                <div className='w-[90%] flex flex-col items-center mb-5 tablet:w-full sm-desktop:mb-0'>
+                  <div className='w-full mb-5 font-dm-sans font-semibold text-xl text-neutral-0 leading-6'>
+                    <p>Daily forecasts</p>
+                  </div>
+                  <div className='w-full'>
+                    <div className='grid grid-cols-3 grid-rows-3 gap-4 tablet:grid-cols-7 tablet:grid-rows-1'>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[0]} maxTemp={maximumTemperatureValues[0]} minTemp={minimumTemperatureValues[0]} date={firstDay} />
+                      </div>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[1]} maxTemp={maximumTemperatureValues[1]} minTemp={minimumTemperatureValues[1]} date={secondDay} />
+                      </div>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[2]} maxTemp={maximumTemperatureValues[2]} minTemp={minimumTemperatureValues[2]} date={thirdDay} />
+                      </div>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[3]} maxTemp={maximumTemperatureValues[3]} minTemp={minimumTemperatureValues[3]} date={fourthDay} />
+                      </div>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[4]} maxTemp={maximumTemperatureValues[4]} minTemp={minimumTemperatureValues[4]} date={fifthDay} />
+                      </div>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[5]} maxTemp={maximumTemperatureValues[5]} minTemp={minimumTemperatureValues[5]} date={sixthDay} />
+                      </div>
+                      <div>
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[6]} maxTemp={maximumTemperatureValues[6]} minTemp={minimumTemperatureValues[6]} date={seventhDay} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='w-full sm-desktop:w-[28%] sm-desktop:h-full sm-desktop:rounded-b-lg desktop:h-full'>
+              <div className='w-full flex flex-col items-center'>
+                <div className='w-[90%] bg-neutral-800 rounded-lg px-5 py-0 pt-5 h-[693px] overflow-scroll tablet:w-full'>
+                  <div className='flex items-center justify-between mb-5'>
+                    <div className='font-dm-sans font-semibold text-xl text-neutral-0 leading-5'>
+                      <p>Hourly Forecast</p>
+                    </div>
+                    <div>
+                      <HourlyForecastDropdown buttonClick={changeForecastDay} firstDay={firstDay} secondDay={secondDay} thirdDay={thirdDay} fourthDay={fourthDay} fithDay={fifthDay} sixthDay={sixthDay} seventhDay={seventhDay} />
+                    </div>
+                  </div>
+                  <div className='overflow-y-scroll h-[595px] snap-y sm-desktop:h-[580px]'>
+                    <div className='snap-start'>
+                      {hours.map((hourLabel, index) => (
+                        <div key={index}>
+                          <div className='snap-start'>
+                            <HourlyForecast hour={hourLabel} hourlyWeatherCode={hourlyWeatherCodes[index]} hourlyTemperature={hourlyTemps[index]} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
