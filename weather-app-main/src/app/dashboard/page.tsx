@@ -11,18 +11,6 @@ import HourlyForecast from '@/components/hourlyForecastComponent.tsx/HourlyForec
 import UnitDropdown from '@/components/unitDropdown/UnitDropdown';
 import HourlyForecastDropdown from '@/components/hourlyForecastDropdown/HourlyForecastDropdown';
 
-
-/*interface City {
-  name: string;
-  latitude: number;
-  longitude: number;
-}
-  
-
-export const defaultCity: City = {"name": "Berlin", "latitude": 52.52, "longitude": 13.4050};*/
-
-
-
 export default function Dashboard() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -181,9 +169,6 @@ export default function Dashboard() {
     const tempDayTwo = weatherData ? Math.round(weatherData.hourly.temperature_2m[x]) : 0;
     hourlyTempDayTwo.push(tempDayTwo);
   }
-
-  console.log(hourlyTempDayTwo)
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hourlyTempDayTwoImperial: any[] = [];
   for(let x=25; x<48; x++) {
@@ -406,7 +391,7 @@ export default function Dashboard() {
   const country = weatherData && weatherData.location && weatherData.location.country
     ? weatherData.location.country
     : '';
-
+    
   const otherDataTitle = ['Feels Like', 'Humidity', 'Wind', 'Precipitation'];
   const otherDataUnitMetric = ["°", "%", " km/h", " mm"];
   const otherDataUnitImperial = ["°", "%", " mph", " in"];
@@ -780,6 +765,35 @@ export default function Dashboard() {
     setPrecipitationVaue(Math.round(precipitation / 25.4 * 100) / 100);
     setPrecipitationUnit(" in")
   }
+
+  const post = async () => {
+    if (weatherData) {
+      try {
+        const response = await fetch("/api/locations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            latitude: weatherData.location.latitude,
+            longitude: weatherData.location.longitude,
+            city: city,
+            country: country,
+          }),
+        });
+        if (!response.ok) {
+          throw new Error("Failed to post location data");
+        }
+        
+      } catch (error) {
+        console.error("Error fetching location data:", error);
+      }
+    }
+  }
+  
+  useEffect(() => {
+    post();
+  },);
   
   return (
     <div className="fex items-center justify-items-center w-full mt-4 tablet:px-6 desktop:px-28 desktop:pt-12 desktop:pb-20">
