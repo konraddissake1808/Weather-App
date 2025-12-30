@@ -11,9 +11,8 @@ import HourlyForecast from '@/components/hourlyForecastComponent.tsx/HourlyForec
 import UnitDropdown from '@/components/unitDropdown/UnitDropdown';
 import HourlyForecastDropdown from '@/components/hourlyForecastDropdown/HourlyForecastDropdown';
 import LoadingTodayCard from '@/components/loadingTodayCard/LoadingTodayCard';
-import { redirect, useSearchParams } from 'next/navigation';
-import { fetchWeatherApi } from 'openmeteo';
-import { on } from 'events';
+import { redirect } from 'next/navigation';
+
 
 export default function Dashboard() {
 

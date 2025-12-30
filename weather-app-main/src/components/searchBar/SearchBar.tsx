@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface Location {
   city: string;
@@ -19,7 +19,7 @@ interface SearchBarProps {
   onSearchInput: (inputValue: string) => void;
 }
 
-function SearchBar( { locations = [], cities, countries, latitude, longitude, searchBarOptionClick, searchBarValueFromOptions, onSearchInput }: SearchBarProps ) {
+function SearchBar( { locations = [], searchBarOptionClick, searchBarValueFromOptions, onSearchInput }: SearchBarProps ) {
   
   const [query, setQuery] = useState<string>(searchBarValueFromOptions ?? '');
   const [filteredLocations, setFilteredLocations] = useState<Location[]>([]);

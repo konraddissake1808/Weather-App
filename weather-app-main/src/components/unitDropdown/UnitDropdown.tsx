@@ -40,7 +40,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
   return (
     <div id='unit-menu-button'>
       <div>
-        <button className='bg-neutral-800 flex items-center px-4 py-2 rounded-lg' onClick={dropdown}>
+        <button className='bg-neutral-800 flex items-center px-4 py-2 rounded-lg hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white' onClick={dropdown}>
           <Image alt='unit dropdown' src={unitDropdownIcon} width={32} height={32} className='w-3.5 h-3.5' />
           <p className='mx-2.5 font-dm-sans font-medium text-sm'>Units</p>
           <Image src={downArrow} alt='down arrow' width={32} height={32} className='w-2.5 h-3.5' />
@@ -48,7 +48,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
       </div>
       <div  id="unit-menu" ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
         <div className='bg-neutral-800 w-[214px] right-0 rounded-lg absolute mt-2 py-1.5 px-2'>
-          <div className='mb-1'>
+          <div className='mb-1 hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
             <button className='font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5' onClick={switchToImperial}>Switch to {nextUnit}</button>
           </div>
           <div className='mb-1'>
@@ -56,7 +56,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
               <p className='px-1.5 pt-1.5'>Temperature</p>
             </div>
             <div className='font-dm-sans font-medium text-base text-neutral-0'>
-              <div id='celciusBtn' className='mb-1 bg-neutral-700 rounded-lg'>
+              <div id='celciusBtn' className='mb-1 bg-neutral-700 rounded-lg hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
                 <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toCelcius}>
                   <div className='flex justify-between w-full items-center'>
                     <div>
@@ -68,7 +68,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
                   </div>
                 </button>
               </div>
-              <div id='fahrenheitBtn' className='rounded-lg'>
+              <div id='fahrenheitBtn' className='rounded-lg hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
                 <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toFahrenheit}>
                   <div className='flex justify-between w-full items-center'>
                     <div>
@@ -90,7 +90,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
               <p className='px-1.5 pt-1.5'>Wind Speed</p>
             </div>
             <div className='font-dm-sans font-medium text-base text-neutral-0'>
-              <div id='kphBtn' className='mb-1 bg-neutral-700 rounded-lg'>
+              <div id='kphBtn' className='mb-1 bg-neutral-700 rounded-lg hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
                 <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toKph}>
                   <div className='flex justify-between w-full items-center'>
                     <div>
@@ -102,7 +102,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
                   </div>
                 </button>
               </div>
-              <div id='mphBtn' className='rounded-lg'>
+              <div id='mphBtn' className='rounded-lg hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
                 <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toMph}>
                   <div className='flex justify-between w-full items-center'>
                     <div>
@@ -124,7 +124,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
               <p className='px-1.5 pt-1.5'>Precipitation</p>
             </div>
             <div className='font-dm-sans font-medium text-base text-neutral-0'>
-              <div id='mmBtn' className='mb-1 bg-neutral-700 rounded-lg'>
+              <div id='mmBtn' className='mb-1 bg-neutral-700 rounded-lg hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
                 <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toMillimeters}>
                   <div className='flex justify-between w-full items-center'>
                     <div>
@@ -136,7 +136,7 @@ function UnitDropdown({toInches ,toMillimeters ,toKph, toMph, toFahrenheit, toCe
                   </div>
                 </button>
               </div>
-              <div id='inchesBtn' className='rounded-lg'>
+              <div id='inchesBtn' className='rounded-lg hover:bg-neutral-700 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-white'>
                 <button className='font-dm-sans font-medium text-base text-neutral-0 w-full h-[39px] px-1.5' onClick={toInches}>
                   <div className='flex justify-between w-full items-center'>
                     <div>
