@@ -66,7 +66,7 @@ function HourlyForecastDropdown( {buttonClick, firstDay, secondDay, thirdDay, fo
             {day.map((days, index) => (
               <div key={index} id={`forecastDayOption${index}`}>    
                 <div id={`hourlyForecastButton${index}`} className='mb-1 bg-neutral-800 rounded-lg dropdownButton'>
-                  <button onClick={() => buttonClick(days ?? '', index)} className=' font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>{days}</button>
+                  <button onClick={() => buttonClick(days ?? '', index)} className='w-full text-start font-dm-sans font-medium text-base text-neutral-0 h-[39px] px-1.5'>{days}</button>
                 </div>
               </div>
             ))}
