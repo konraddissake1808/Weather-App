@@ -10,6 +10,10 @@ import DailyForecastCard from '@/components/dailyForecastCard/DailyForecastCard'
 import HourlyForecast from '@/components/hourlyForecastComponent.tsx/HourlyForecast';
 import UnitDropdown from '@/components/unitDropdown/UnitDropdown';
 import HourlyForecastDropdown from '@/components/hourlyForecastDropdown/HourlyForecastDropdown';
+import LoadingTodayCard from '@/components/loadingTodayCard/LoadingTodayCard';
+import { redirect, useSearchParams } from 'next/navigation';
+import { fetchWeatherApi } from 'openmeteo';
+import { on } from 'events';
 
 export default function Dashboard() {
 
@@ -29,6 +33,7 @@ export default function Dashboard() {
         setWeatherData(data);
       } catch (error) {
         console.error("Error fetching weather data:", error);
+        redirect('/weather-app-main/src/components/errorDashboard/ErrorDashboard.tsx')
       }
     };
 
@@ -85,31 +90,31 @@ export default function Dashboard() {
   //daily forecast - first day
   const firstDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 0
     ? new Date(weatherData.daily.time[0]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
   //dayTwo
   const secondDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 1
     ? new Date(weatherData.daily.time[1]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
   //dayThree
   const thirdDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 2
     ? new Date(weatherData.daily.time[2]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
   //dayFour
   const fourthDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 3
     ? new Date(weatherData.daily.time[3]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
   //dayFive
   const fifthDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 4
     ? new Date(weatherData.daily.time[4]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
   //daySix
   const sixthDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 5
     ? new Date(weatherData.daily.time[5]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
   //daySeven
   const seventhDay = weatherData && weatherData.daily && weatherData.daily.time && weatherData.daily.time.length > 6
     ? new Date(weatherData.daily.time[6]).toLocaleDateString('en-US', { weekday: 'long' })
-    : 'Loading date...';
+    : '-';
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const days: any[] = [];
@@ -683,7 +688,7 @@ export default function Dashboard() {
     celsiusButton?.classList.remove('bg-neutral-700')
     fahrenheitButton?.classList.add('bg-neutral-700')
     celciusCheckmark?.classList.add('hidden')
-    fahrenheitCheckmark?.classList.remove("hidden")
+    fahrenheitCheckmark?.classList.remove('hidden')
     setCurrentTemperature(Math.round(temperature * 9/5) + 32);
     setFeelsLikeTemperature(Math.round(feelsLike * 9/5) + 32);
     setHourlyTemperatureDayOne(hourlyTempDayOneImperial)
@@ -794,7 +799,104 @@ export default function Dashboard() {
   useEffect(() => {
     post();
   },);
-  
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [locationsList, setLocationsList] = useState<any[]>([])
+
+  const fetchLocations = async () => {
+      try {
+        const response = await fetch('/api/locations', {method: 'GET'});
+        
+        if (!response.ok) {
+          throw new Error('Network response was not okay')
+        }
+        const data = await response.json();
+        
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const locations:any[] = []
+        for(let i = 0; i < data.length; i++) {
+          locations.push(data[i]);
+        }
+        setLocationsList(locations)
+      } catch (error) {
+        console.error('Error fetching locations', error)
+      }
+    }
+  useEffect(() => {
+    fetchLocations();
+  }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cities: any[] = []
+  for (let i = 0; i < locationsList.length; i++) {
+    cities.push(locationsList[i].city);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const countries: any[] = []
+  for (let i = 0; i < locationsList.length; i++) {
+    countries.push(locationsList[i].country);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const latitude: any[] = []
+  for (let i = 0; i < locationsList.length; i++) {
+    latitude.push(locationsList[i].latitude);
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const longitude: any[] = []
+  for (let i = 0; i < locationsList.length; i++) {
+    longitude.push(locationsList[i].longitude);
+  }
+
+  const [searchCity, setSearchCity] = useState("");
+  const [searchCountry, setSearchCountry] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [searchLatitude, setSearchLatitude] = useState<number | any>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [searchLongitude, setSearchLongitude] = useState<number | any>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [searchIndex, setSearchIndex] = useState<number | any>();
+
+  function searchBarOptionClick(city:string, index:number) {
+    console.log(`Search option clicked for city: ${city} at index ${index} latitude: ${latitude[index]} longitude: ${longitude[index]}`);
+    setSearchCity(city);
+    setSearchCountry(countries[index]);
+    setSearchLatitude(latitude[index]);
+    setSearchLongitude(longitude[index]);
+    setSearchIndex(index)
+    const searchBarInput = document.getElementById('search-bar') as HTMLInputElement | null;
+    if (searchBarInput) {
+      searchBarInput.value = city;
+    }
+  }
+
+  function onSearchInput (inputValue: string) {
+    setSearchCity(inputValue);
+    
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async function searchButtonClick(req: any) { 
+    console.log(`Searched for city: ${searchCity} in ${searchCountry} at index ${searchIndex} latitude: ${searchLatitude} longitude: ${searchLongitude}`);
+    const fetchWeatherData = async () => {
+      try {
+        //const {latitude, longitude} = await getUserLocation();
+        console.log("User location:", searchLatitude, searchLongitude);
+        // Fetch weather data for user's location
+        //const response = await fetch(`/api/weather?lat=${latitude}&lon=${longitude}`);
+        // Fallback to default city if user denies location access
+        const response = await fetch(`/api/weather?lat=${searchLatitude}&lon=${searchLongitude}`); 
+        const data = await response.json();
+        setWeatherData(data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchWeatherData();
+  }
+
   return (
     <div className="fex items-center justify-items-center w-full mt-4 tablet:px-6 desktop:px-28 desktop:pt-12 desktop:pb-20">
       <div className='w-full flex flex-col items-center'>
@@ -819,8 +921,8 @@ export default function Dashboard() {
             <h1 className='text-white text-5xl font-bold font-bricolage-grotesque text-center text-balance'>How&apos;s the sky looking today?</h1>
           </div>
           <div className='w-[90%] flex flex-col items-center mt-12 tablet:w-full sm-desktop:w-[720px]'>
-            <SearchBar  />
-            <SearchButton />
+            <SearchBar locations={locationsList} cities={cities} countries={countries} latitude={latitude} longitude={longitude} onSearchInput={onSearchInput} searchBarOptionClick={searchBarOptionClick} searchBarValueFromOptions={searchCity} />
+            <SearchButton searchButtonClick={searchButtonClick} />
           </div>
           <div className='w-full mt-8 mb-5 sm-desktop:flex desktop:h-[693px] sm-desktop:justify-center'>
             <div className='w-full flex items-center justify-center tablet:w-full sm-desktop:mr-8 sm-desktop:w-[70%] sm-desktop:h-full desktop:w-[800px]'>
@@ -829,22 +931,24 @@ export default function Dashboard() {
                   {weatherData ? (
                     <TodayCard date={date} temperature={currentTemperature} city={city} country={country} weatherCode={weatherCode} />
                   ) : (
-                    <div className="text-white">Loading weather data...</div>
+                    <div className='w-full'>
+                      <LoadingTodayCard />
+                    </div>
                   )}
                 </div>
                 <div className='w-[90%] flex flex-col md:flex-row items-center justify-between mt-5 mb-8 tablet:w-full sm-desktop:mt-8 sm-desktop:mb-12'>
                   <div className='text-white text-2xl w-full font-semibold md:mb-0 grid grid-cols-2 grid-rows-2 gap-4 tablet:grid-cols-4 tablet:grid-rows-1'>
                     <div className='flex flex-col items-center w-full'>
-                      <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLikeTemperature} otherDataUnit={dataUnit[0]} />
+                      <OtherDataCard otherDataTitle={otherDataTitle[0]} otherData={feelsLikeTemperature} otherDataUnit={dataUnit[0]} weatherCode={weatherCode} city={city} />
                     </div>
                     <div>
-                      <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnit={dataUnit[1]} />
+                      <OtherDataCard otherDataTitle={otherDataTitle[1]} otherData={humidity} otherDataUnit={dataUnit[1]} weatherCode={weatherCode} city={city} />
                     </div>
                     <div>
-                      <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={windUnit} />
+                      <OtherDataCard otherDataTitle={otherDataTitle[2]} otherData={windSpeed} otherDataUnit={windUnit} weatherCode={weatherCode} city={city} />
                     </div>
                     <div>
-                      <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={precipitationUnit} />
+                      <OtherDataCard otherDataTitle={otherDataTitle[3]} otherData={precipitationValue} otherDataUnit={precipitationUnit} weatherCode={weatherCode} city={city} />
                     </div>
                   </div>
                 </div>
@@ -855,25 +959,25 @@ export default function Dashboard() {
                   <div className='w-full'>
                     <div className='grid grid-cols-3 grid-rows-3 gap-4 tablet:grid-cols-7 tablet:grid-rows-1'>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[0]} maxTemp={maximumTemperatureValues[0]} minTemp={minimumTemperatureValues[0]} date={firstDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[0]} maxTemp={maximumTemperatureValues[0]} minTemp={minimumTemperatureValues[0]} date={firstDay} city={city} />
                       </div>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[1]} maxTemp={maximumTemperatureValues[1]} minTemp={minimumTemperatureValues[1]} date={secondDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[1]} maxTemp={maximumTemperatureValues[1]} minTemp={minimumTemperatureValues[1]} date={secondDay} city={city} />
                       </div>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[2]} maxTemp={maximumTemperatureValues[2]} minTemp={minimumTemperatureValues[2]} date={thirdDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[2]} maxTemp={maximumTemperatureValues[2]} minTemp={minimumTemperatureValues[2]} date={thirdDay} city={city} />
                       </div>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[3]} maxTemp={maximumTemperatureValues[3]} minTemp={minimumTemperatureValues[3]} date={fourthDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[3]} maxTemp={maximumTemperatureValues[3]} minTemp={minimumTemperatureValues[3]} date={fourthDay} city={city} />
                       </div>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[4]} maxTemp={maximumTemperatureValues[4]} minTemp={minimumTemperatureValues[4]} date={fifthDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[4]} maxTemp={maximumTemperatureValues[4]} minTemp={minimumTemperatureValues[4]} date={fifthDay}city={city} />
                       </div>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[5]} maxTemp={maximumTemperatureValues[5]} minTemp={minimumTemperatureValues[5]} date={sixthDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[5]} maxTemp={maximumTemperatureValues[5]} minTemp={minimumTemperatureValues[5]} date={sixthDay} city={city} />
                       </div>
                       <div>
-                        <DailyForecastCard weatherCode={dailyWeatherCodes[6]} maxTemp={maximumTemperatureValues[6]} minTemp={minimumTemperatureValues[6]} date={seventhDay} />
+                        <DailyForecastCard weatherCode={dailyWeatherCodes[6]} maxTemp={maximumTemperatureValues[6]} minTemp={minimumTemperatureValues[6]} date={seventhDay} city={city} />
                       </div>
                     </div>
                   </div>
@@ -896,7 +1000,7 @@ export default function Dashboard() {
                       {hours.map((hourLabel, index) => (
                         <div key={index}>
                           <div className='snap-start'>
-                            <HourlyForecast hour={hourLabel} hourlyWeatherCode={hourlyWeatherCodes[index]} hourlyTemperature={hourlyTemps[index]} />
+                            <HourlyForecast hour={hourLabel} hourlyWeatherCode={hourlyWeatherCodes[index]} hourlyTemperature={hourlyTemps[index]} city={city} />
                           </div>
                         </div>
                       ))}

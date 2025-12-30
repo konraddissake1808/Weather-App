@@ -42,12 +42,24 @@ function HourlyForecastDropdown( {buttonClick, firstDay, secondDay, thirdDay, fo
 
   return (
     <div id='dayMenuButton'>
-      <div>
-        <button id='dayButton' className='bg-neutral-600 flex items-center px-4 py-2 rounded-lg' onClick={dropdown}>
-          <p id='dayButtonText' className='mr-3 font-dm-sans font-medium text-base'>{day[0] ?? ''}</p>
-          <Image src={downArrow} alt='down arrow' width={32} height={32} className='w-3 h-[18px]' />
-        </button>
-      </div>
+      {
+        firstDay? (
+          <div>
+            <button id='dayButton' className='bg-neutral-600 flex items-center px-4 py-2 rounded-lg' onClick={dropdown}>
+              <p id='dayButtonText' className='mr-3 font-dm-sans font-medium text-base'>{day[0] ?? ''}</p>
+              <Image src={downArrow} alt='down arrow' width={32} height={32} className='w-3 h-[18px]' />
+            </button>
+          </div>
+        ) : (
+          <div>
+            <button id='dayButton' className='bg-neutral-600 flex items-center px-4 py-2 rounded-lg' onClick={dropdown}>
+              <p id='dayButtonText' className='mr-3 font-dm-sans font-medium text-base'>-</p>
+              <Image src={downArrow} alt='down arrow' width={32} height={32} className='w-3 h-[18px]' />
+            </button>
+          </div>
+        )
+      }
+      
       <div id='day-menu' ref={dropdownMenuRef} className='relative hidden z-10 duration-200'>
         <div className='bg-neutral-800 w-[214px] right-0 rounded-lg absolute mt-2 py-1.5 px-2'>
           <div id='hourlyForcastDropdownContainer'>

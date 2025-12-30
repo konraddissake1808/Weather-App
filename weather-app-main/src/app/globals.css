@@ -63,3 +63,8 @@ body {
     background-size: cover;
   }
 }
+
+#loading-today-card {
+  background-color: #262540;
+  
+}

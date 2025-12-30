@@ -1,14 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface OtherDataCardProps {
   otherDataTitle?: string;
-  otherData?: string | number | null;
+  otherData?: number | string;
   otherDataUnit?: string;
+  weatherCode?: string;
+  city?: string;
 }
 
-function OtherDataCard({otherDataTitle, otherData, otherDataUnit}: OtherDataCardProps) {
+function OtherDataCard({weatherCode, otherDataTitle, otherData, otherDataUnit, city}: OtherDataCardProps) {
 
-
+  const [load, setLoad] = useState(0);
+  
+  useEffect(() => {
+    if (city === undefined || city === "Loading city...") {
+      setLoad(0)
+    } else {
+      setLoad(1)
+    }
+    
+})
 
   return (
     <div className='h-[118px] w-full px-5 bg-neutral-800 flex items-center rounded-xl'>
@@ -17,7 +28,10 @@ function OtherDataCard({otherDataTitle, otherData, otherDataUnit}: OtherDataCard
                 <p>{otherDataTitle}</p>
             </div>
             <div className='text-[32px] font-light text-neutral-0 font-dm-sans'>
+              { load ?
                 <p>{otherData}{otherDataUnit}</p>
+                : <p>-</p>
+              }
             </div>
         </div>
     </div>

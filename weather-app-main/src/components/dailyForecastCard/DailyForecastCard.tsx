@@ -14,9 +14,10 @@ interface DailyForecastCardProps {
   maxTemp?: number;
   minTemp?: number;
   weatherCode?: string;
+  city?: string;
 }
 
-function DailyForecastCard({date, maxTemp, minTemp, weatherCode}: DailyForecastCardProps) {
+function DailyForecastCard({date, maxTemp, minTemp, weatherCode, city}: DailyForecastCardProps) {
 
     const weatherBackgrounds = {
     "0": clearSky,
@@ -51,28 +52,43 @@ function DailyForecastCard({date, maxTemp, minTemp, weatherCode}: DailyForecastC
 
   const shortenedDate = date ? date.slice(0, 3) : '';
 
+  const [load, setLoad] = React.useState(0);
+
+  React.useEffect(() => {
+    if (city === undefined || city === "Loading city...") {
+      setLoad(0)
+    } else {
+      setLoad(1)
+    } 
+})
+
   return (
     <div className='bg-neutral-800 h-[165px] flex flex-col justify-between items-center px-2.5 py-4 rounded-lg'>
-        <div className='font-dm-sans font-medium text-[18px]'>
-            <p>{shortenedDate}</p>
-        </div>
-        <div>
-            <Image 
-                src={weatherBackgrounds[weatherCode as keyof typeof weatherBackgrounds] || clearSky} 
-                alt="Weather Icon" 
-                width={30} 
-                height={30} 
-                className="mx-auto h-[60px] w-[60px]"
-            />
-        </div>
-        <div className='flex justify-between w-full'>
-            <div className='font-dm-sans font-medium text-base text-neutral-0'>
-                <p>{maxTemp}°</p>
+        {load ? (
+            <div className='h-full flex flex-col w-full justify-between items-center'>
+                <div className='font-dm-sans font-medium text-[18px]'>
+                    <p>{shortenedDate}</p>
+                </div>
+                <div>
+                    <Image 
+                        src={weatherBackgrounds[weatherCode as keyof typeof weatherBackgrounds] || clearSky} 
+                        alt="Weather Icon" 
+                        width={30} 
+                        height={30} 
+                        className="mx-auto h-[60px] w-[60px]"
+                    />
+                </div>
+                <div className='flex justify-between w-full'>
+                    <div className='font-dm-sans font-medium text-base text-neutral-0'>
+                        <p>{maxTemp}°</p>
+                    </div>
+                    <div className='font-dm-sans font-medium text-base text-neutral-200'>
+                        <p>{minTemp}°</p>
+                    </div>
+                </div>
             </div>
-            <div className='font-dm-sans font-medium text-base text-neutral-200'>
-                <p>{minTemp}°</p>
-            </div>
-        </div>
+        ) : <div></div>}
+        
     </div>
   )
 }

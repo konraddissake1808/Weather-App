@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image';
 import clearSky from '../../../public/icon-sunny.webp';
 import partlyCloudy from '../../../public/icon-partly-cloudy.webp';
@@ -13,9 +13,10 @@ interface HourlyForecastProps {
     hourlyTemperature?: number;
     hourlyWeatherCode?: number|unknown;
     hour?: string;
+    city?: string;
 }
 
-function HourlyForecast({hourlyTemperature, hourlyWeatherCode, hour}: HourlyForecastProps) {
+function HourlyForecast({hourlyTemperature, hourlyWeatherCode, hour, city}: HourlyForecastProps) {
 
     const weatherBackgrounds = {
     "0": clearSky,
@@ -48,26 +49,42 @@ function HourlyForecast({hourlyTemperature, hourlyWeatherCode, hour}: HourlyFore
     "99": thunderstorm,
   }
 
+  const [load, setLoad] = React.useState(0);
+  useEffect(() => {
+    if(city === undefined || city === "Loading city...") {
+        setLoad(0)
+    } else {
+        setLoad(1)
+    }
+  })
+  
   return (
     <div className='bg-neutral-700 w-full h-[60px] rounded-lg mb-4 flex items-center'>
-        <div className='flex items-center justify-between pr-4 w-full'>
-            <div className='flex items-center'>
-                <div className='mx-2'>
-                    <Image 
-                    src={weatherBackgrounds[hourlyWeatherCode as keyof typeof weatherBackgrounds] || clearSky} 
-                    alt="Weather Icon" 
-                    width={30} 
-                    height={30} 
-                    className="mx-auto h-[40px] w-[40px]"
-                /></div>
-                <div>
-                    {hour}
+        { load ? 
+                <div className='flex items-center justify-between pr-4 w-full'>
+                    <div className='flex items-center'>
+                        <div className='mx-2'>
+                            <Image 
+                            src={weatherBackgrounds[hourlyWeatherCode as keyof typeof weatherBackgrounds] || clearSky} 
+                            alt="Weather Icon" 
+                            width={30} 
+                            height={30} 
+                            className="mx-auto h-[40px] w-[40px]"
+                        /></div>
+                        <div>
+                            {hour}
+                        </div>
+                    </div>
+                    <div>
+                        <p>{hourlyTemperature}</p>
+                    </div>  
                 </div>
-            </div>
-            <div>
-                <p>{hourlyTemperature}</p>
-            </div>    
-        </div>
+                :
+                <div className='flex items-center justify-between pr-4 w-full'>
+
+                </div>
+             }   
+        
     </div>
   )
 }
